@@ -1,0 +1,30 @@
+{
+  "name": "my-space",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --devtool eval --progress --open --config ./webpack.config.js --hot --color",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "18.1.0",
+    "react-dom": "18.1.0"
+  },
+  "devDependencies": {
+    "webpack": "5.72.0",
+    "webpack-cli": "4.9.2",
+    "webpack-dev-server": "4.8.1",
+    "babel-loader": "8.2.5",
+    "@babel/core": "7.17.9",
+    "@babel/cli": "7.17.6",
+    "@babel/preset-env": "7.16.11",
+    "@babel/preset-react": "7.16.7",
+    "html-webpack-plugin": "5.5.0",
+    "clean-webpack-plugin": "4.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
