@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages/home/index'
-import classNames from "classnames";
+import Routes from './routers/router'
+import './app.css'
 
 class App extends React.Component {
     static defaultProps = {
@@ -10,9 +11,11 @@ class App extends React.Component {
     render() {
 
         return (
-            <body>
+            // <body className="App">
+            // <Routes>
                 <Home />
-            </body>
+            // </Routes>
+            // </body>
         );
     }
 }
