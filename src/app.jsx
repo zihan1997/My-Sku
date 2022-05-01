@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import HomePage from './pages/home/index'
+import Home from './pages/home/index'
+import classNames from "classnames";
 
 class App extends React.Component {
     static defaultProps = {
@@ -8,19 +8,11 @@ class App extends React.Component {
     }
 
     render() {
-        const {
-            prefix
-        } = this.props
-
-        const classes = classNames(
-            `${prefix}-app`
-        )
 
         return (
-            <div>
-                test
-                <HomePage />
-            </div>
+            <body>
+                <Home />
+            </body>
         );
     }
 }
