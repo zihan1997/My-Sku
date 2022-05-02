@@ -15,6 +15,14 @@ export default function MyRouter(){
        <Routes>
            <Route path="/home" element={<WelcomePage/>} />
            <Route path="/products" element={<ProductsPage/>}>
+               <Route
+                   index
+                   element={
+                   <main style={{padding: "1rem"}}>
+                       <p>Select a product</p>
+                   </main>
+                   }
+               />
                <Route path=":productId" element={<Product/>}/>
            </Route>
            <Route path="/users" element={<UsersPage/>} />

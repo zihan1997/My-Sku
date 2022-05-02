@@ -5,8 +5,6 @@ import 'antd/dist/antd.css';
 import './index.scss';
 import {Dropdown, Layout, Menu, PageHeader} from 'antd';
 import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
     UserOutlined,
     FileOutlined, HomeOutlined,
 } from '@ant-design/icons';
@@ -90,9 +88,11 @@ export default class Home extends React.Component {
                             margin: '24px 16px',
                             padding: 24,
                             minHeight: 280,
+                            overflow: 'initial'
                         }}
                     >
                         <div id="content">
+                            <Test/>
                             <MyRouter/>
                         </div>
                     </Content>

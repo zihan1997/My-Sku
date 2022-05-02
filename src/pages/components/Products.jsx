@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {Outlet} from "react-router";
 import {getProducts} from "./tools/ProductService";
 
@@ -10,12 +10,19 @@ export default function ProductsPage(){
             <h1>Here are products!</h1>
             <nav>
                 {products.map((product) => (
-                    <Link
+                    <NavLink
+                        style={({isActive}) => {
+                            return {
+                                display: "block",
+                                margin: "1rem 0",
+                                color: isActive? "green": "gray",
+                            }
+                        }}
                         to={`/products/${product.number}`}
                         key={product.number}
                     >
-                        {product.name}<br/>
-                    </Link>
+                        {product.name}
+                    </NavLink>
                 ))}
             </nav>
             <Outlet/>

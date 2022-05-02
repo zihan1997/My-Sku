@@ -1,3 +1,4 @@
+import Papa from "papaparse";
 
 export function getProducts() {
     return products;
@@ -7,6 +8,7 @@ export function getProduct(id) {
         product.number === id
     ))
 }
+
 
 let products = [
     {
