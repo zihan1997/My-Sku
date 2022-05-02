@@ -6,15 +6,13 @@ import './index.scss';
 import {Dropdown, Layout, Menu, PageHeader} from 'antd';
 import {
     UserOutlined,
-    FileOutlined, HomeOutlined,
+    FileOutlined, HomeOutlined, MenuUnfoldOutlined, MenuFoldOutlined,
 } from '@ant-design/icons';
-
+import MySider from "./sider";
 const { Header, Sider, Content } = Layout;
 import Test from './test'
 import {Link} from "react-router-dom";
-const {
-    Item
-} = Menu
+
 
 
 export default class Home extends React.Component {
@@ -41,58 +39,38 @@ export default class Home extends React.Component {
     render() {
         return (
             <Layout>
-                <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-                    <div className="logo" >My-Sku</div>
-                    <Menu
-                        theme="dark"
-                        mode="inline"
-                        // defaultSelectedKeys={['0']}
-                        >
-                        {/* Nav bar Listing */}
-                        <Item
-                            key={this.incrementKey()}
-                        >
-                            <HomeOutlined />
-                            <Link to="home">
-                                <span> Home</span>
-                            </Link>
-                        </Item>
-                        <Item
-                            key={this.incrementKey()}
-                        >
-                            <UserOutlined />
-                            <Link to='users'>
-                                <span> User</span>
-                            </Link>
-                        </Item>
-                        <Item key={this.incrementKey()}>
-                            <FileOutlined />
-                            <Link to='products'>
-                                <span> Product</span>
-                            </Link>
-                        </Item>
-                    </Menu>
-                </Sider>
-                <Layout className="site-layout">
+                <MySider
+                    incrementKey={this.incrementKey}
+                    collapsed = {this.state.collapsed}
+                />
+                <Layout
+                    className="site-layout"
+                    style={{
+                        marginLeft: 200,
+                    }}
+                >
                     <Header className="site-layout-background" style={{ padding: 0 }}>
-                        {/*{React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {*/}
-                        {/*    className: 'trigger',*/}
-                        {/*    onClick: this.toggle,*/}
-                        {/*})}*/}
 
                     </Header>
-                    {/*<Navbar  collapsed={true}/>*/}
+
                     <Content
                         className="site-layout-background"
                         style={{
-                            margin: '24px 16px',
-                            padding: 24,
+                            margin: '24px 10px 0',
+                            paddingLeft: 24,
+                            // padding: 24,
                             minHeight: 280,
                             overflow: 'initial'
                         }}
                     >
-                        <div id="content">
-                            <Test/>
+                        <div
+                            id="content"
+                            style={{
+                                fontSize: 20,
+                                padding: 24,
+                            }}
+                        >
+                            {/*<Test/>*/}
                             <MyRouter/>
                         </div>
                     </Content>

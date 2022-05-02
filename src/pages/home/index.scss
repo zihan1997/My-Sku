@@ -27,6 +27,7 @@
 }
 .ant-layout ant-layout-has-sider{
   height: auto;
+  overflow-y: scroll;
 }
 section{
   //height: 900px;
@@ -34,9 +35,10 @@ section{
   height: 100%;
 }
 
-#content{
-  font-size: 20px;
-  height: fit-content;
-  overflow: hidden;
-  line-height: 50px;
-}
+//#content{
+//  padding-bottom: initial;
+//  font-size: 20px;
+//  //height: 1000px;
+//  line-height: 50px;
+//  overflow: initial;
+//}
