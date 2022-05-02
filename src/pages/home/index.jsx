@@ -1,14 +1,9 @@
-import React from 'react';
-import {
-    Link,
-    BrowserRouter as Router,
-    Route
-} from "react-router-dom"
-import { Switch } from "react-router"
-
+import React from 'react'
+import Navbar from "./navbar";
+import MyRouter from "../../routers/router";
 import 'antd/dist/antd.css';
 import './index.scss';
-import { Layout, Menu} from 'antd';
+import {Dropdown, Layout, Menu, PageHeader} from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -18,6 +13,7 @@ import {
 
 const { Header, Sider, Content } = Layout;
 import Test from './test'
+import {Link} from "react-router-dom";
 const {
     Item
 } = Menu
@@ -48,40 +44,46 @@ export default class Home extends React.Component {
         return (
             <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-                    <div className="logo" />
+                    <div className="logo" >My-Sku</div>
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={['1']}
+                        // defaultSelectedKeys={['0']}
                         >
                         {/* Nav bar Listing */}
                         <Item
                             key={this.incrementKey()}
                         >
                             <HomeOutlined />
-                            {/*<Link to="/">*/}
-                                <span>Home</span>
-                            {/*</Link>*/}
+                            <Link to="home">
+                                <span> Home</span>
+                            </Link>
                         </Item>
                         <Item
                             key={this.incrementKey()}
                         >
                             <UserOutlined />
-                            <span>User</span>
+                            <Link to='users'>
+                                <span> User</span>
+                            </Link>
                         </Item>
                         <Item key={this.incrementKey()}>
                             <FileOutlined />
-                            <span>Product</span>
+                            <Link to='products'>
+                                <span> Product</span>
+                            </Link>
                         </Item>
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{ padding: 0 }}>
-                        {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                            className: 'trigger',
-                            onClick: this.toggle,
-                        })}
+                        {/*{React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {*/}
+                        {/*    className: 'trigger',*/}
+                        {/*    onClick: this.toggle,*/}
+                        {/*})}*/}
+
                     </Header>
+                    {/*<Navbar  collapsed={true}/>*/}
                     <Content
                         className="site-layout-background"
                         style={{
@@ -90,12 +92,9 @@ export default class Home extends React.Component {
                             minHeight: 280,
                         }}
                     >
-                        <Test />
-                        {/*<Switch>*/}
-                        {/*    <Route path="/">*/}
-                        {/*        <Test/>*/}
-                        {/*    </Route>*/}
-                        {/*</Switch>*/}
+                        <div id="content">
+                            <MyRouter/>
+                        </div>
                     </Content>
                 </Layout>
             </Layout>

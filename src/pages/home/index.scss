@@ -14,6 +14,12 @@
   height: 32px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  color: white;
+}
+
+.header-text{
+  text-align: right;
 }
 
 .site-layout .site-layout-background {
@@ -26,4 +32,8 @@ section{
   //height: 900px;
   padding-bottom: 0%;
   height: 100%;
+}
+
+#content{
+  font-size: 20px;
 }
