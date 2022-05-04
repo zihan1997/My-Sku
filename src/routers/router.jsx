@@ -18,7 +18,12 @@ export default function MyRouter(){
                <Route
                    index
                    element={
-                   <main style={{padding: "1rem"}}>
+                   <main
+                       style={{
+                               padding: "1rem",
+                               color: "green"
+                            }}
+                   >
                        <p>Select a product</p>
                    </main>
                    }

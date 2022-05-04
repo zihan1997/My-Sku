@@ -1,18 +1,13 @@
 import React from 'react'
-import Navbar from "./navbar";
-import MyRouter from "../../routers/router";
+import MyTopBar from "./topbar";
 import 'antd/dist/antd.css';
 import './index.scss';
-import {Dropdown, Layout, Menu, PageHeader} from 'antd';
-import {
-    UserOutlined,
-    FileOutlined, HomeOutlined, MenuUnfoldOutlined, MenuFoldOutlined,
-} from '@ant-design/icons';
 import MySider from "./sider";
-const { Header, Sider, Content } = Layout;
-import Test from './test'
-import {Link} from "react-router-dom";
-
+import {Layout} from 'antd';
+// const { Header, Sider, Content } = Layout;
+// import Test from './test'
+// import {Link} from "react-router-dom";
+import MyContent from "./content";
 
 
 export default class Home extends React.Component {
@@ -49,31 +44,10 @@ export default class Home extends React.Component {
                         marginLeft: 200,
                     }}
                 >
-                    <Header className="site-layout-background" style={{ padding: 0 }}>
+                    <MyTopBar />
 
-                    </Header>
+                    <MyContent/>
 
-                    <Content
-                        className="site-layout-background"
-                        style={{
-                            margin: '24px 10px 0',
-                            paddingLeft: 24,
-                            // padding: 24,
-                            minHeight: 280,
-                            overflow: 'initial'
-                        }}
-                    >
-                        <div
-                            id="content"
-                            style={{
-                                fontSize: 20,
-                                padding: 24,
-                            }}
-                        >
-                            {/*<Test/>*/}
-                            <MyRouter/>
-                        </div>
-                    </Content>
                 </Layout>
             </Layout>
         );
