@@ -56,6 +56,12 @@ export default class MySider extends React.Component{
                             <span> Product</span>
                         </Link>
                     </Item>
+                    <Item key={this.props.incrementKey()}>
+                        <FileOutlined />
+                        <Link to='products'>
+                            <span> Add Product</span>
+                        </Link>
+                    </Item>
                 </Menu>
             </Sider>
         )
