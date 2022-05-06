@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 export default function AddProductForm(props){
 
@@ -23,17 +23,26 @@ export default function AddProductForm(props){
         setCode(event.target.value);
     }
     //
-    function submit(){
+    function submit(auto=false){
         let product = {};
-        product.name = name;
-        product.code = code;
-        props.onCreate(product)
+        if(auto){
+            product = props.onAutoFill()
+        }else{
+            product.name = name;
+            product.code = code;
+        }
+        props.onCreate(product);
+
     }
 
     // button press for submitting
-    function handClick(event) {
+    function handSubmitClick(event) {
         console.log("form submitting")
         submit(event);
+    }
+
+    function handleAutoFillClick(){
+        submit(true);
     }
 
     return (
@@ -49,7 +58,6 @@ export default function AddProductForm(props){
         >
             <Form.Item
                 label="Code"
-                name="code"
                 rules={[{ required: true, message: 'Please provide the code!' }]}
             >
                 <Input onChange={getCode}/>
@@ -57,19 +65,45 @@ export default function AddProductForm(props){
 
             <Form.Item
                 label="Name"
-                name="name"
                 rules={[{ required: true, message: 'Please provide a name!' }]}
             >
                 <Input onChange={getName}/>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item
+                label="Quantity"
+                // rules={[{ required: true, message: 'Please provide a name!' }]}
+            >
+                Quantity done auto
+            </Form.Item>
+
+            <Form.Item
+                label="Price"
+                // rules={[{ required: true, message: 'Please provide a name!' }]}
+            >
+                Price done auto
+            </Form.Item>
+
+            <Form.Item
+                label="Add Date"
+                // rules={[{ required: true, message: 'Please provide a name!' }]}
+            >
+                Date done auto
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 8, span: 10 }}>
                 <Button type="primary"
-                    onClick={(event)=>handClick(event)}
+                    onClick={(event)=>handSubmitClick(event)}
                 >
                     Submit
                 </Button>
+                <Button type="default"
+                        onClick={(event)=>handleAutoFillClick(event)}
+                >
+                    Auto Fill Data
+                </Button>
             </Form.Item>
+
         </Form>
     );
 

@@ -1,8 +1,8 @@
 import React from "react";
-import {Dropdown, Layout, Menu, message, Space, Button, Tooltip} from 'antd';
+import {Dropdown, Layout, Menu, message, Space, Button} from 'antd';
 const { Header} = Layout;
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-
+import './index.scss'
 export default function MyTopBar(props){
     return(
         <Header
@@ -18,6 +18,7 @@ export default function MyTopBar(props){
                 >
                     <Button>
                         <Space>
+                            <UserOutlined />
                             User xxx
                             <DownOutlined />
                         </Space>
@@ -26,11 +27,6 @@ export default function MyTopBar(props){
             </Space>
         </Header>
     )
-}
-
-function handleButtonClick(e) {
-    message.info('Click on left button.');
-    console.log('click left button', e);
 }
 
 function handleMenuClick(e) {
@@ -45,17 +41,14 @@ const menu = (
             {
                 label: 'User Setting #1',
                 key: '1',
-                icon: <UserOutlined />,
             },
             {
                 label: 'User Setting #1',
                 key: '2',
-                icon: <UserOutlined />,
             },
             {
                 label: 'User Setting #1',
                 key: '3',
-                icon: <UserOutlined />,
             },
         ]}
     />

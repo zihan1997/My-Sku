@@ -1,8 +1,6 @@
 import React, {useState} from "react"
-import {Table, Tag, Space, Button, Modal} from "antd";
-const { Column, ColumnGroup } = Table;
-import {Link, NavLink} from "react-router-dom";
-import {Outlet} from "react-router";
+import {Table, Space, Button, Modal} from "antd";
+const { Column} = Table;
 import {Header} from "antd/es/layout/layout";
 import AddProductForm from "./addProductForm";
 
@@ -15,11 +13,12 @@ export default function ProductsPage(props){
     };
 
     const handleOk = () => {
-        console.log("form ok")
+        console.log("modal closed")
         setIsModalVisible(false);
     };
 
     const handleCancel = () => {
+        console.log("modal canceled");
         setIsModalVisible(false);
     };
 
@@ -47,7 +46,10 @@ export default function ProductsPage(props){
                     onOk={handleOk}
                     onCancel={handleCancel}
                 >
-                    <AddProductForm onCreate={props.onCreate}/>
+                    <AddProductForm
+                        onCreate={props.onCreate}
+                        onAutoFill={()=>props.onAutoFill()}
+                    />
                 </Modal>
             </Header>
 

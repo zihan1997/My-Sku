@@ -78,7 +78,9 @@ export default function ProductsDB(){
             // updating quantity
             let index = newProducts.findIndex(each => each.key === template.key);
             newProducts[index].quantity += 1;
-            console.log("adding quantity " + index + " " + newProducts[index].quantity)
+            console.log("adding quantity "
+                + toString(newProducts[index])
+                + " " + newProducts[index].quantity);
         }
         setProducts(newProducts);
     }
@@ -91,6 +93,7 @@ export default function ProductsDB(){
             products={products}
             onDelete={(record)=>deleteProduct(record)}
             onCreate={(product)=>addProduct(product)}
+            onAutoFill={()=>createOne()}
         />
     )
 
