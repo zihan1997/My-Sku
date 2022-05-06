@@ -1,4 +1,4 @@
-Feature List
+## Feature List
 
 ### Browsing through Nav bar on the left
 
