@@ -51,14 +51,14 @@ export default class MySider extends React.Component{
                         {
                             key: 'item 2',
                             icon: <UserOutlined />,
-                            label: (<Link to='users'>
+                            label: (<Link to='/users'>
                                         <span> User</span>
                                     </Link>),
                         },
                         {
                             key: 'item 3',
                             icon: <FileOutlined />,
-                            label: (<Link to='products'>
+                            label: (<Link to='/products'>
                                         <span> Product</span>
                                     </Link>),
                         },

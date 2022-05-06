@@ -5,15 +5,20 @@ import ProductsPage from "./ProductPage";
 // "name", "code", "price", "quantity", "date"
 // ####-###-### 4-3-4
 export default function ProductsDB(){
-    const [products, setProducts] = useState(createProducts());
+    const [products, setProducts] =
+        useState( JSON.parse(window.localStorage.getItem('products')) || createProducts());
 
     useEffect(()=>{
-        setProducts(products)
-    }, [products.map(product=>product.code)]);
+        setProducts(JSON.parse(window.localStorage.getItem('products')));
+    }, [])
 
-    function createOne(key){
+    useEffect(()=>{
+        console.log("data changed")
+        window.localStorage.setItem('products', JSON.stringify(products))
+    }, [products]);
+
+    function createOne(){
         let product = {};
-        product.key = key;
         product.name = faker.commerce.productName();
         product.code = faker.datatype.number({
             min: 1000,
@@ -35,6 +40,8 @@ export default function ProductsDB(){
             max: 299
         })
         product.date = faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z').toDateString();
+
+        product.key = product.code + "-" + product.name;
         return product;
     }
 
@@ -42,11 +49,9 @@ export default function ProductsDB(){
         console.log("creating data")
         let ProductsList = [];
         for(let i = 0; i < count; i++){
-            ProductsList.push(createOne(i+1));
+            ProductsList.push(createOne());
         }
 
-        // let list = ProductsList.map(product => product.code)
-        // console.log(list)
         return ProductsList;
     }
 
@@ -61,21 +66,21 @@ export default function ProductsDB(){
         console.log("add product: " + product)
 
         let template = createOne();
-        if(product.price === undefined){
-            product.price = template.price;
+        template.name = product.name;
+        template.code = product.code;
+        template.key = template.name + "-" + template.code;
+
+        let newProducts = products.slice();
+        // adding new
+        if((products.filter((each)=>(each.key === template.key))).length === 0){
+            newProducts.push(template);
+        }else{
+            // updating quantity
+            let index = newProducts.findIndex(each => each.key === template.key);
+            newProducts[index].quantity += 1;
+            console.log("adding quantity " + index + " " + newProducts[index].quantity)
         }
-        if(product.quantity === undefined){
-            product.quantity = template.quantity;
-        }
-        if(product.date === undefined){
-            product.date = template.date;
-        }
-        product.key = products.length + 1;
-        if((products.filter((each)=>(each.code === product.code))).length === 0){
-            let newProducts = products.slice();
-            newProducts.push(product);
-            setProducts(newProducts);
-        }
+        setProducts(newProducts);
     }
 
     function toString(product){

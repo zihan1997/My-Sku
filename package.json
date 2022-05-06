@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --progress --config ./webpack.config.js --hot --color",
+    "dev": "webpack-dev-server -d eval --progress --hot --color --config ./webpack.config.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
