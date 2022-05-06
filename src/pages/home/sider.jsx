@@ -4,9 +4,10 @@ import
 {
     FileOutlined,
     HomeOutlined,
+    PlusSquareOutlined,
     UserOutlined
 } from "@ant-design/icons";
-import {Layout, Menu} from "antd";
+import {Layout, Menu, Modal} from "antd";
 const { Sider } = Layout;
 const {
     Item
@@ -14,6 +15,11 @@ const {
 import './index.scss'
 
 export default class MySider extends React.Component{
+
+    // handleClick = ()=> {
+    //     console.log("add new")
+    //     this.showModal();
+    // }
     render(){
         return (
             <Sider
@@ -32,39 +38,46 @@ export default class MySider extends React.Component{
                     theme="dark"
                     mode="inline"
                     // defaultSelectedKeys={['0']}
+
+                     // Nav bar Listing
+                    items={[
+                        {
+                            key: 'item 1',
+                            icon: <HomeOutlined />,
+                            label: (<Link to="home">
+                                        <span> Home</span>
+                                    </Link>)
+                        },
+                        {
+                            key: 'item 2',
+                            icon: <UserOutlined />,
+                            label: (<Link to='users'>
+                                        <span> User</span>
+                                    </Link>),
+                        },
+                        {
+                            key: 'item 3',
+                            icon: <FileOutlined />,
+                            label: (<Link to='products'>
+                                        <span> Product</span>
+                                    </Link>),
+                        },
+                        // {
+                        //     key: 'item 4',
+                        //     icon: <PlusSquareOutlined />,
+                        //     label: (<Link to=''>
+                        //         <span> Add Product</span>
+                        //
+                        //     </Link>
+                        //     ),
+                        // },
+                    ]}
                 >
-                    {/* Nav bar Listing */}
-                    <Item
-                        key={this.props.incrementKey()}
-                    >
-                        <HomeOutlined />
-                        <Link to="home">
-                            <span> Home</span>
-                        </Link>
-                    </Item>
-                    <Item
-                        key={this.props.incrementKey()}
-                    >
-                        <UserOutlined />
-                        <Link to='users'>
-                            <span> User</span>
-                        </Link>
-                    </Item>
-                    <Item key={this.props.incrementKey()}>
-                        <FileOutlined />
-                        <Link to='products'>
-                            <span> Product</span>
-                        </Link>
-                    </Item>
-                    <Item key={this.props.incrementKey()}>
-                        <FileOutlined />
-                        <Link to='products'>
-                            <span> Add Product</span>
-                        </Link>
-                    </Item>
+
                 </Menu>
             </Sider>
         )
     }
 
 }
+

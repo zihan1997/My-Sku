@@ -19,11 +19,6 @@ export default class Home extends React.Component {
             keyCounter: 0
         };
     }
-    // give unique key to each title in nav
-    incrementKey = ()=>{
-        console.log(this.state.keyCounter);
-        return this.state.keyCounter++;
-    }
 
     toggle = () => {
         this.setState({
