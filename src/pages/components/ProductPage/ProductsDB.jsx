@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {faker} from "@faker-js/faker"
-import ProductsPage from "./ProductPage";
+import ProductsPage from "../../../features/products/ProductPage";
 // Attributes
 // "name", "code", "price", "quantity", "date"
 // ####-###-### 4-3-4
@@ -14,6 +14,7 @@ export default function ProductsDB(){
 
     useEffect(()=>{
         console.log("data changed")
+        if(!products) setProducts({});
         window.localStorage.setItem('products', JSON.stringify(products))
     }, [products]);
 

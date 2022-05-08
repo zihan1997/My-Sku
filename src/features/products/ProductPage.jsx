@@ -2,7 +2,9 @@ import React, {useState} from "react"
 import {Table, Space, Button, Modal} from "antd";
 const { Column} = Table;
 import {Header} from "antd/es/layout/layout";
-import AddProductForm from "./addProductForm";
+// import AddProductForm from "../../pages/components/ProductPage/addProductForm";
+import AddProduct from './AddProduct'
+import {useSelector} from "react-redux";
 
 
 export default function ProductsPage(props){
@@ -21,6 +23,8 @@ export default function ProductsPage(props){
         console.log("modal canceled");
         setIsModalVisible(false);
     };
+
+    const products = useSelector((state)=>(state.products));
 
     return(
         <div>
@@ -46,14 +50,11 @@ export default function ProductsPage(props){
                     onOk={handleOk}
                     onCancel={handleCancel}
                 >
-                    <AddProductForm
-                        onCreate={props.onCreate}
-                        onAutoFill={()=>props.onAutoFill()}
-                    />
+                    <AddProduct/>
                 </Modal>
             </Header>
 
-            <Table dataSource={props.products}>
+            <Table dataSource={products}>
                 <Column title="Code" dataIndex="code" key="code"/>
                 <Column title="Name" dataIndex="name" key="name"/>
                 <Column title="Price" dataIndex="price" key="price"/>
@@ -70,7 +71,7 @@ export default function ProductsPage(props){
                             >Change</a>
                             <a
                                 // onClick={ () =>console.log("delete in progress" + text.name)}
-                                onClick={ ()=>props.onDelete(record)}
+                                // onClick={ ()=>props.onDelete(record)}
                             >Delete</a>
                         </Space>
                     )}
