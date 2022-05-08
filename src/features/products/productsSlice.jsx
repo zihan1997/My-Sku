@@ -1,5 +1,5 @@
 import {createSlice, nanoid} from "@reduxjs/toolkit";
-import { sub } from 'date-fns'
+// import { sub } from 'date-fns'
 
 const initialState = [
     {
@@ -48,11 +48,14 @@ const productsSlice = createSlice({
         },
         productEdited(state, action){
             const {key, replace} = action.payload;
+            console.log("in edit now " + key);
             const existingProduct = state.find((product)=>(product.key === key));
             if(existingProduct){
-                for(let arr in replace){
-                    console.log("---" + arr);
-                }
+                existingProduct.name = replace.name;
+                existingProduct.quantity = replace.quantity;
+                existingProduct.price = replace.price;
+                existingProduct.date = new Date().toDateString();
+                console.log(`>>${existingProduct}`)
             }
         }
     }

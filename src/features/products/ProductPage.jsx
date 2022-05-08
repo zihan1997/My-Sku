@@ -1,44 +1,24 @@
 import React, {useState} from "react"
-import {Table, Space, Button, Modal} from "antd";
+import {Table, Space} from "antd";
 const { Column} = Table;
 import {Header} from "antd/es/layout/layout";
 
-import {productDeleted, productEdited} from "./productsSlice";
-import AddProductForm from './AddProduct'
+import {productDeleted} from "./productsSlice";
+import EditProduct_Modal_Form from "./EditProduct_Modal_Form";
+import AddProductForm from './AddProduct_Modal_Form'
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
 
-export default function ProductsPage(props){
-    const [isModalVisible, setIsModalVisible] = useState(false);
+export default function ProductsPage(){
     const products = useSelector((state)=>(state.products));
 
     const dispatch = useDispatch();
     // const history = useHistory();
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        console.log("modal closed")
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        console.log("modal canceled");
-        setIsModalVisible(false);
-    };
 
     const onProductDel = (rec)=> {
         dispatch(productDeleted({key: rec.key}));
-    }
-
-    const onProductEdit = (rec) => {
-        console.log("in edit")
-        dispatch(productEdited(
-            {key: rec.key}
-        ));
     }
 
     return(
@@ -50,23 +30,7 @@ export default function ProductsPage(props){
                 }}
             >
                 Here are products!
-                <Button
-                    style={{
-                        float: 'right'
-                    }}
-                    type="primary"
-                    onClick={showModal}
-                >
-                    Add Product
-                </Button>
-                <Modal
-                    title="Basic Modal"
-                    visible={isModalVisible}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
-                >
-                    <AddProductForm/>
-                </Modal>
+                <AddProductForm/>
             </Header>
 
             <Table dataSource={products}>
@@ -81,13 +45,10 @@ export default function ProductsPage(props){
                     key="action"
                     render={(text, record) => (
                         <Space size="middle">
+                            <EditProduct_Modal_Form
+                                record={record}
+                            />
                             <a
-                                // onClick={ ()=>(console.log("clicked change"))}
-                                onClick={()=>onProductEdit(record)}
-                            >Change</a>
-                            <a
-                                // onClick={ () =>console.log("delete in progress" + text.name)}
-                                // onClick={ ()=>props.onDelete(record)}
                                 onClick={()=>onProductDel(record)}
                             >Delete</a>
                         </Space>
