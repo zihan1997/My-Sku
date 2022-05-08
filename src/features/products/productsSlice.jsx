@@ -31,7 +31,7 @@ const productsSlice = createSlice({
             prepare(code, name, price, quantity, date){
                 return {
                     payload: {
-                        id: nanoid(),
+                        key: nanoid(),
                         name,
                         code,
                         price,
@@ -43,10 +43,20 @@ const productsSlice = createSlice({
             }
         },
         productDeleted(state, action){
-            state = state.filter((product) => product !== action.payload)
+            const {key} = action.payload;
+            return state.filter((product) => (product.key !== key))
+        },
+        productEdited(state, action){
+            const {key, replace} = action.payload;
+            const existingProduct = state.find((product)=>(product.key === key));
+            if(existingProduct){
+                for(let arr in replace){
+                    console.log("---" + arr);
+                }
+            }
         }
     }
 });
 
-export const {productAdded, productDeleted} = productsSlice.actions;
+export const {productAdded, productDeleted, productEdited} = productsSlice.actions;
 export default productsSlice.reducer;

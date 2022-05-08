@@ -2,13 +2,19 @@ import React, {useState} from "react"
 import {Table, Space, Button, Modal} from "antd";
 const { Column} = Table;
 import {Header} from "antd/es/layout/layout";
-// import AddProductForm from "../../pages/components/ProductPage/addProductForm";
-import AddProduct from './AddProduct'
-import {useSelector} from "react-redux";
+
+import {productDeleted, productEdited} from "./productsSlice";
+import AddProductForm from './AddProduct'
+import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 
 export default function ProductsPage(props){
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const products = useSelector((state)=>(state.products));
+
+    const dispatch = useDispatch();
+    // const history = useHistory();
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -24,7 +30,16 @@ export default function ProductsPage(props){
         setIsModalVisible(false);
     };
 
-    const products = useSelector((state)=>(state.products));
+    const onProductDel = (rec)=> {
+        dispatch(productDeleted({key: rec.key}));
+    }
+
+    const onProductEdit = (rec) => {
+        console.log("in edit")
+        dispatch(productEdited(
+            {key: rec.key}
+        ));
+    }
 
     return(
         <div>
@@ -50,7 +65,7 @@ export default function ProductsPage(props){
                     onOk={handleOk}
                     onCancel={handleCancel}
                 >
-                    <AddProduct/>
+                    <AddProductForm/>
                 </Modal>
             </Header>
 
@@ -67,11 +82,13 @@ export default function ProductsPage(props){
                     render={(text, record) => (
                         <Space size="middle">
                             <a
-                                onClick={ ()=>(console.log("clicked change"))}
+                                // onClick={ ()=>(console.log("clicked change"))}
+                                onClick={()=>onProductEdit(record)}
                             >Change</a>
                             <a
                                 // onClick={ () =>console.log("delete in progress" + text.name)}
                                 // onClick={ ()=>props.onDelete(record)}
+                                onClick={()=>onProductDel(record)}
                             >Delete</a>
                         </Space>
                     )}
