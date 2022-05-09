@@ -30,7 +30,6 @@ export default class Home extends React.Component {
         return (
             <Layout>
                 <MySider
-                    incrementKey={this.incrementKey}
                     collapsed = {this.state.collapsed}
                 />
                 <Layout
@@ -40,9 +39,7 @@ export default class Home extends React.Component {
                     }}
                 >
                     <MyTopBar />
-
                     <MyContent/>
-
                 </Layout>
             </Layout>
         );

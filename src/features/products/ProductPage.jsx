@@ -8,6 +8,7 @@ import EditProduct_Modal_Form from "./EditProduct_Modal_Form";
 import AddProductForm from './AddProduct_Modal_Form'
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
+import SearchProductForm from "./SearchProductForm";
 
 
 export default function ProductsPage(){
@@ -26,11 +27,11 @@ export default function ProductsPage(){
             <Header
                 style={{
                     background: 'inherit',
-                    textAlign: 'center'
+                    // textAlign: 'center'
                 }}
             >
-                Here are products!
                 <AddProductForm/>
+                <SearchProductForm/>
             </Header>
 
             <Table dataSource={products}>

@@ -11,7 +11,7 @@ export default function AddProductForm() {
     const [name, setName] = useState(createName());
     const [code, setCode] = useState(createCode());
     const [price, setPrice] = useState(createPrice());
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
     const [date, setDate] = useState(new Date().toDateString())
 
     const products = useSelector(state => state.products);
@@ -79,19 +79,22 @@ export default function AddProductForm() {
                     && Boolean(date);
 
     const handSubmitClick = ()=>{
+        console.log("submit")
         if(canSave){
             let existing = products.find((product) => product.code === code);
             if(existing){
+                setIsFinding(true);
                 dispatch(productEdited({
-                    key:( existing.key),
+                    key:(existing.key),
                     replace: {
                         name: existing.name,
                         quantity: + parseInt(existing.quantity) + parseInt(quantity),
                         price: existing.price
                     }
-                }))
-            }else
+                }));
+            }else {
                 dispatch(productAdded(code, name, price, quantity, date));
+            }
         }
         setCode(createCode());
         setName(createName());
@@ -107,9 +110,11 @@ export default function AddProductForm() {
         <>
             <Button
                 style={{
-                    float: 'right'
+                    padding: 0,
+                    float: 'left',
+                    color: "white",
                 }}
-                type="primary"
+                type="text"
                 onClick={showModal}
             >
                 Add Product
@@ -170,7 +175,9 @@ export default function AddProductForm() {
                     <Form.Item
                         label="Quantity"
                         help={isFinding?
-                                <a style={{color:"green"}}>currently in stock: {quantity}</a>
+                                <a style={{color:"green"}}>currently in stock: {
+                                    products.find(product => product.code === code).quantity
+                                }</a>
                                 : ""
                         }
                     >

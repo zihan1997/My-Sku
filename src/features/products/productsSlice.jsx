@@ -34,6 +34,7 @@ const productsSlice = createSlice({
     reducers: {
         productAdded: {
             reducer(state, action){
+                console.log("product added")
                 state.push(action.payload)
             },
             prepare(code, name, price, quantity, date){
@@ -62,7 +63,6 @@ const productsSlice = createSlice({
                 existingProduct.quantity = replace.quantity;
                 existingProduct.price = replace.price;
                 existingProduct.date = new Date().toDateString();
-                console.log(`>>${existingProduct}`)
             }
         }
     }

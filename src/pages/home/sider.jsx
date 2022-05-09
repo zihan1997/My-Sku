@@ -13,6 +13,8 @@ const {
     Item
 } = Menu
 import './index.scss'
+import AddProductForm from "../../features/products/AddProduct_Modal_Form";
+import SearchProductForm from "../../features/products/SearchProductForm";
 
 export default class MySider extends React.Component{
 
@@ -61,16 +63,27 @@ export default class MySider extends React.Component{
                             label: (<Link to='/products'>
                                         <span> Product</span>
                                     </Link>),
+                            children: [
+                                {
+                                    key: 'item 4',
+                                    icon: <PlusSquareOutlined />,
+                                    label: (
+                                        <Link to='/products'>
+                                            <span> <AddProductForm/></span>
+                                        </Link>)
+                                },
+                                {
+                                    key: 'item 5',
+                                    icon: <PlusSquareOutlined/>,
+                                    label: (
+                                        <Link to='/products'>
+                                            <span><SearchProductForm/></span>
+                                        </Link>
+
+                                    )
+                                }
+                            ]
                         },
-                        // {
-                        //     key: 'item 4',
-                        //     icon: <PlusSquareOutlined />,
-                        //     label: (<Link to=''>
-                        //         <span> Add Product</span>
-                        //
-                        //     </Link>
-                        //     ),
-                        // },
                     ]}
                 >
 
