@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {Form, Input, Button, Space, Modal} from 'antd';
+import {Form, Input, Button, Space, Modal, message} from 'antd';
 
 import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
-import {productAdded} from "./productsSlice";
+import {productAdded, productEdited} from "./productsSlice";
 
 export default function AddProductForm() {
+    const [isFinding, setIsFinding] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [name, setName] = useState(createName());
     const [code, setCode] = useState(createCode());
@@ -13,25 +14,20 @@ export default function AddProductForm() {
     const [quantity, setQuantity] = useState(0);
     const [date, setDate] = useState(new Date().toDateString())
 
+    const products = useSelector(state => state.products);
     const dispatch = useDispatch();
-
-
-    // const onNameChange = (e)=>setName(e.target.value);
-    // const OnCodeSet = () => setCode(createCode());
-    // const onPriceChange = (e) => setPrice(e.target.value);
-    // const onQuantityChange = (e) => setQuantity(e.target.value);
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
     const handleOk = () => {
-        console.log("modal closed")
+        // console.log("modal closed")
         setIsModalVisible(false);
     };
 
     const handleCancel = () => {
-        console.log("modal canceled");
+        // console.log("modal canceled");
         setIsModalVisible(false);
     };
 
@@ -54,15 +50,48 @@ export default function AddProductForm() {
         setDate(createDate());
     }
 
+    const onFetchProduct = () => {
+        message
+            .loading("Validating...", 0.2)
+            .then(()=>{
+                let existing = products.find(product => product.code === code);
+                if(existing){
+                    message.success('Found', 1);
+                    setCorrespondingProduct(existing);
+                }else{
+                    message.error("Not Found", 1);
+                }
+            }
+        )
+    }
+
+    const setCorrespondingProduct = (product) => {
+        setIsFinding(true);
+        setName(product.name);
+        setPrice(product.price);
+        setQuantity(product.quantity);
+    }
+
     const canSave = Boolean(code)
                     && Boolean(name)
                     && Boolean(price)
                     && Boolean(quantity)
                     && Boolean(date);
 
-    const handSubmitClick = (event)=>{
+    const handSubmitClick = ()=>{
         if(canSave){
-            dispatch(productAdded(code, name, price, quantity, date))
+            let existing = products.find((product) => product.code === code);
+            if(existing){
+                dispatch(productEdited({
+                    key:( existing.key),
+                    replace: {
+                        name: existing.name,
+                        quantity: + parseInt(existing.quantity) + parseInt(quantity),
+                        price: existing.price
+                    }
+                }))
+            }else
+                dispatch(productAdded(code, name, price, quantity, date));
         }
         setCode(createCode());
         setName(createName());
@@ -71,6 +100,7 @@ export default function AddProductForm() {
         setDate(createDate());
 
         setIsModalVisible(false);
+        setIsFinding(false);
     }
 
     return (
@@ -85,7 +115,7 @@ export default function AddProductForm() {
                 Add Product
             </Button>
             <Modal
-                title="Basic Modal"
+                title="Add New Product"
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -106,8 +136,13 @@ export default function AddProductForm() {
                                 value={code}
                                 onChange={e => (setCode(e.target.value))}
                             />
+                            <Button
+                                type="primary"
+                                onClick={()=>onFetchProduct()}
+                            >
+                                Find
+                            </Button>
                             <button
-                                type='primary'
                                 onClick={generateCode}
                             >Generate
                             </button>
@@ -134,7 +169,10 @@ export default function AddProductForm() {
 
                     <Form.Item
                         label="Quantity"
-                        // rules={[{ required: true, message: 'Please provide a name!' }]}
+                        help={isFinding?
+                                <a style={{color:"green"}}>currently in stock: {quantity}</a>
+                                : ""
+                        }
                     >
                         <Space>
                             <Input

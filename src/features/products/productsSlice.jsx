@@ -13,10 +13,18 @@ const initialState = [
     {
         key: nanoid(),
         code: "8159-186-2492",
-        date: "Thu Aug 20 2020",
         name: "Refined Wooden Chair",
         price: 465.68,
         quantity: 223,
+        date: "Thu Aug 20 2020",
+    },
+    {
+        key: nanoid(),
+        code: "1",
+        name: "1",
+        price: 1,
+        quantity: 3,
+        date: "Thu Aug 20 2021",
     }
 ]
 
@@ -48,7 +56,6 @@ const productsSlice = createSlice({
         },
         productEdited(state, action){
             const {key, replace} = action.payload;
-            console.log("in edit now " + key);
             const existingProduct = state.find((product)=>(product.key === key));
             if(existingProduct){
                 existingProduct.name = replace.name;

@@ -49,7 +49,7 @@ export default function EditProduct_Modal_Form(props){
         dispatch(productEdited(
             {
                 key: product.key,
-                replace: {name, quantity, price}
+                replace: {name: name, quantity: quantity, price: price}
             }
         ));
         setIsModalVisible(false);
@@ -75,6 +75,16 @@ export default function EditProduct_Modal_Form(props){
                     initialValues={{remember: true}}
                     autoComplete="off"
                 >
+                    <Form.Item
+                        label="Code"
+                    >
+                        <Space>
+                            <Input
+                                value={product.code}
+                            />
+                        </Space>
+                    </Form.Item>
+
                     <Form.Item
                         label="Name"
                         rules={[{required: true, message: 'Please provide a name!'}]}
