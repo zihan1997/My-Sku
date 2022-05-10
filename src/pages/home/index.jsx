@@ -15,7 +15,7 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapsed: false,
+            collapsed: true,
             keyCounter: 0
         };
     }

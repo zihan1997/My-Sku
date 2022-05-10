@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Form, Input, Modal, Space} from "antd";
 import {createDate, createName, createPrice, createQuantity} from "./productGenerator";
-import {productEdited} from "./productsSlice";
+import {productEdited} from "../../../reducers/products/productsSlice";
 import {useDispatch} from "react-redux";
 
 

@@ -3,7 +3,7 @@ import {Table, Space} from "antd";
 const { Column} = Table;
 import {Header} from "antd/es/layout/layout";
 
-import {productDeleted} from "./productsSlice";
+import {productDeleted} from "../../../reducers/products/productsSlice";
 import EditProduct_Modal_Form from "./EditProduct_Modal_Form";
 import AddProductForm from './AddProduct_Modal_Form'
 import {useSelector, useDispatch} from "react-redux";
@@ -27,11 +27,12 @@ export default function ProductsPage(){
             <Header
                 style={{
                     background: 'inherit',
-                    // textAlign: 'center'
+                    textAlign: 'center'
                 }}
             >
-                <AddProductForm/>
-                <SearchProductForm/>
+                Here are Products!
+                {/*<AddProductForm/>*/}
+                {/*<SearchProductForm/>*/}
             </Header>
 
             <Table dataSource={products}>

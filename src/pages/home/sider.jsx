@@ -13,15 +13,11 @@ const {
     Item
 } = Menu
 import './index.scss'
-import AddProductForm from "../../features/products/AddProduct_Modal_Form";
-import SearchProductForm from "../../features/products/SearchProductForm";
+import AddProductForm from "../components/ProductPage/AddProduct_Modal_Form";
+import SearchProductForm from "../components/ProductPage/SearchProductForm";
 
 export default class MySider extends React.Component{
 
-    // handleClick = ()=> {
-    //     console.log("add new")
-    //     this.showModal();
-    // }
     render(){
         return (
             <Sider

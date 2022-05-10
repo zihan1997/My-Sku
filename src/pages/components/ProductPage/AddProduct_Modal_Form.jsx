@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {Form, Input, Button, Space, Modal, message} from 'antd';
 
 import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
-import {productAdded, productEdited} from "./productsSlice";
+import {productAdded, productEdited} from "../../../reducers/products/productsSlice";
 
 export default function AddProductForm() {
     const [isFinding, setIsFinding] = useState(false);

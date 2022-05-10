@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import WelcomePage from "../pages/components/HomePage/WelcomePage";
 import UsersPage from "../pages/components/UserPage/UsersPage";
-import ProductsPage from '../features/products/ProductPage'
+import ProductsPage from '../pages/components/ProductPage/ProductPage'
 
 export default function MyRouter(){
     return(
