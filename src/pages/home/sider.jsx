@@ -73,7 +73,7 @@ export default class MySider extends React.Component{
                                     icon: <PlusSquareOutlined/>,
                                     label: (
                                         <Link to='/products'>
-                                            <span><SearchProductForm/></span>
+                                            <span> <SearchProductForm/> </span>
                                         </Link>
 
                                     )

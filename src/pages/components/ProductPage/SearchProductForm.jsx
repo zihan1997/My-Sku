@@ -77,13 +77,14 @@ export default function SearchProductForm(){
     }
 
     return (
-        <Space
-        >
+        <>
             <Button
                 style={{
                     padding: 0,
                     float: 'left',
-                    margin: 0,
+                    backgroundColor: 'inherit',
+                    border: 'inherit',
+                    color: 'white'
                 }}
                 onClick={showModal}
             >
@@ -150,7 +151,12 @@ export default function SearchProductForm(){
                     </Descriptions.Item>
                 </Descriptions>
             </Modal>
-
-        </Space>
+            <Modal
+                title="besides"
+                // visible={isModalVisible}
+            >
+                Test
+            </Modal>
+        </>
     );
 }
