@@ -25,6 +25,14 @@ const initialState = [
         price: 1,
         quantity: 3,
         date: "Thu Aug 20 2021",
+    },
+    {
+        key: nanoid(),
+        code: "6901668005755",
+        name: "Recycled Wooden Ball",
+        price: 10,
+        quantity: 3,
+        date: "Wed May 11 2022",
     }
 ]
 

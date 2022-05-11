@@ -31,7 +31,7 @@ export default function ProductsPage(){
                 }}
             >
                 Here are Products!
-                {/*<AddProductForm/>*/}
+                <AddProductForm/>
                 <SearchProductForm/>
             </Header>
 

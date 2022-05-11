@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {Form, Input, Button, Space, Modal, message} from 'antd';
+import {Form, Input, Button, Space, Modal, message, Divider} from 'antd';
 
 import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
 import {productAdded, productEdited} from "../../../reducers/products/productsSlice";
+import CodeReader from "./BarCodeReader/CodeReader";
 
 export default function AddProductForm() {
     const [isFinding, setIsFinding] = useState(false);
@@ -12,7 +13,8 @@ export default function AddProductForm() {
     const [code, setCode] = useState(createCode());
     const [price, setPrice] = useState(createPrice());
     const [quantity, setQuantity] = useState(1);
-    const [date, setDate] = useState(new Date().toDateString())
+    const [date, setDate] = useState(new Date().toDateString());
+    const [isScan, setIsScan] = useState(false);
 
     const products = useSelector(state => state.products);
     const dispatch = useDispatch();
@@ -106,6 +108,11 @@ export default function AddProductForm() {
         setIsFinding(false);
     }
 
+    const onDetect = (result)=>{
+        console.log("---result : " + result)
+        setCode(result)
+    }
+
     return (
         <>
             <Button
@@ -127,7 +134,7 @@ export default function AddProductForm() {
             >
                 <Form
                     name="basic"
-                    labelCol={{span: 8}}
+                    labelCol={{span: 7}}
                     wrapperCol={{span: 16}}
                     initialValues={{remember: true}}
                     autoComplete="off"
@@ -151,9 +158,24 @@ export default function AddProductForm() {
                                 onClick={generateCode}
                             >Generate
                             </button>
+                            <button
+                                onClick={()=>setIsScan(true)}
+                            >Scan
+                            </button>
                         </Space>
-
                     </Form.Item>
+
+
+                    {isScan ?
+                        (
+                            <>
+                            <Divider/>
+                                <CodeReader onDetectCode={onDetect}/>
+                            <Divider/>
+                            </>
+                        ): ""
+                    }
+
 
                     <Form.Item
                         label="Name"

@@ -18,7 +18,7 @@ export default function CodeReader(props){
         let listCopy = list.slice();
         listCopy.push(result.code);
         setList(listCopy);
-        console.log("appending in effect " + list.length)
+        // console.log("appending in effect " + list.length)
 
     }, [result]);
 
@@ -33,7 +33,7 @@ export default function CodeReader(props){
             }
         }
         setCodeMap(mapCopy);
-        console.log(codeMap);
+        // console.log(codeMap);
     }, [list])
 
     useEffect(()=>{
@@ -50,20 +50,21 @@ export default function CodeReader(props){
         setCode(index);
     }, [codeMap])
 
+    useEffect(()=>{
+        props.onDetectCode(code);
+    }, [code])
+
     const onDetected = result => {
         setResult(result);
     };
 
-    useEffect(()=>{
-        props.onDetectCode(code);
-    }, [code])
     const onClick = ()=> {
         setCamera(true);
         if(result) {
             message.loading("Please hold for 5 sec")
             setTimeout(() => {
                 setCamera(false)
-            }, 10000);
+            }, 7000);
             props.onDetectCode(code);
         }
     }
@@ -74,13 +75,11 @@ export default function CodeReader(props){
                     <div className="container">
                         {camera && <Scanner onDetected={onDetected} />}
                     </div>
-                </Col>
-                <Col >
                     <Space>
                         <button onClick={onClick}>
-                            {camera ? "Stop" : "Scan for Code"}
+                            {!camera && "Press for Scan"}
                         </button>
-                        <p >{code}</p>
+                        {/*<p >{code}</p>*/}
                     </Space>
 
                 </Col>

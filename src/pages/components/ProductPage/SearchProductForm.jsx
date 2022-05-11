@@ -6,7 +6,7 @@ const { Option } = Select;
 
 export default function SearchProductForm(){
 
-    const [isModalVisible, setIsModalVisible] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -30,6 +30,7 @@ export default function SearchProductForm(){
 
     const [option, setOption] = useState();
     const [optVal, setOptVal] = useState();
+    const [isCamera, setIsCamera] = useState(false);
 
     function onSelect(value) {
         console.log(`selected ${value} ${optVal}`);
@@ -47,6 +48,7 @@ export default function SearchProductForm(){
         switch (option) {
             case "code":
                 res = "code";
+                setIsCamera(true);
                 product = products.find(one => one.code === optVal)
                 break;
             case "name":
@@ -78,9 +80,10 @@ export default function SearchProductForm(){
     }
 
     const onDetect = (result)=>{
-        console.log("---result : " + result)
-        setOptVal(result)
+        // console.log("---result : " + result)
+        setOptVal(result);
     }
+
 
     return (
         <>
@@ -129,10 +132,17 @@ export default function SearchProductForm(){
                 </Space>
 
                 <Space direction="horizontal"></Space>
-                <Divider/>
-                {/*// camera Detecting*/}
-                <CodeReader onDetectCode={onDetect}/>
-                <Divider/>
+
+                {(option === "code")?
+                    (
+                        <>
+                            <Divider/>
+                                <CodeReader onDetectCode={onDetect}/>
+                            <Divider/>
+                        </>
+                    ):<Divider/>
+                }
+
 
                 <Descriptions
                     labelStyle={{
