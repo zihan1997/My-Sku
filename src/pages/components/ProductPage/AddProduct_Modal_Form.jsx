@@ -86,7 +86,7 @@ export default function AddProductForm() {
                 dispatch(productAdded(code, name, price, quantity, date));
             }
 
-            navigate("products")
+            navigate("../products")
         }
         setCode(createCode());
         setName(createName());

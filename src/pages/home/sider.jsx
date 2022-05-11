@@ -21,7 +21,7 @@ export default class MySider extends React.Component{
     render(){
         return (
             <Sider
-                trigger={null} collapsible
+                // trigger={null} collapsible
                 style={{
                     overflow: 'auto',
                     height: '100vh',
@@ -61,6 +61,7 @@ export default class MySider extends React.Component{
                                     </Link>),
                             children: [
                                 {
+
                                     key: 'item 4',
                                     icon: <SearchOutlined />,
                                     label: (
@@ -70,24 +71,24 @@ export default class MySider extends React.Component{
 
                                     )
                                 },
-                                {
-                                    key: 'item 5',
-                                    icon: <PlusSquareOutlined />,
-                                    label: (
-                                        <Link to='/products'>
-                                            <span> <AddProductForm/></span>
-                                        </Link>)
-                                },
-                                {
-                                    key: 'item 6',
-                                    icon: <SearchOutlined />,
-                                    label: (
-                                        <Link to='/products'>
-                                            <span> <SearchProductForm/> </span>
-                                        </Link>
-
-                                    )
-                                }
+                                // {
+                                //     key: 'item 5',
+                                //     icon: <PlusSquareOutlined />,
+                                //     label: (
+                                //         <Link to='/products'>
+                                //             <span> <AddProductForm/></span>
+                                //         </Link>)
+                                // },
+                                // {
+                                //     key: 'item 6',
+                                //     icon: <SearchOutlined />,
+                                //     label: (
+                                //         <Link to='/products'>
+                                //             <span> <SearchProductForm/> </span>
+                                //         </Link>
+                                //
+                                //     )
+                                // }
                             ]
                         },
                     ]}

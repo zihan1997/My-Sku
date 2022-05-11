@@ -32,7 +32,7 @@ export default function ProductController(){
     return(
         <PageHeader
             className="product-action-header"
-            onBack={() => navigate("products")}
+            onBack={() => navigate("../products")}
             title="Title"
             subTitle="This is a subtitle"
 
