@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button, Divider, Descriptions, Input, Modal, Select, Space, message} from 'antd';
 import {useSelector} from "react-redux";
+import CodeReader from "./BarCodeReader/CodeReader";
 const { Option } = Select;
 
 export default function SearchProductForm(){
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(true);
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -76,6 +77,11 @@ export default function SearchProductForm(){
 
     }
 
+    const onDetect = (result)=>{
+        console.log("---result : " + result)
+        setOptVal(result)
+    }
+
     return (
         <>
             <Button
@@ -121,6 +127,11 @@ export default function SearchProductForm(){
                         onClick={()=>onFindProduct()}
                     >Find</Button>
                 </Space>
+
+                <Space direction="horizontal"></Space>
+                <Divider/>
+                {/*// camera Detecting*/}
+                <CodeReader onDetectCode={onDetect}/>
                 <Divider/>
 
                 <Descriptions
@@ -150,12 +161,6 @@ export default function SearchProductForm(){
                         {date}
                     </Descriptions.Item>
                 </Descriptions>
-            </Modal>
-            <Modal
-                title="besides"
-                // visible={isModalVisible}
-            >
-                Test
             </Modal>
         </>
     );

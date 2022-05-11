@@ -32,7 +32,7 @@ export default function ProductsPage(){
             >
                 Here are Products!
                 {/*<AddProductForm/>*/}
-                {/*<SearchProductForm/>*/}
+                <SearchProductForm/>
             </Header>
 
             <Table dataSource={products}>
