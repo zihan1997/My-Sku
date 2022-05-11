@@ -6,20 +6,6 @@ const { Option } = Select;
 
 export default function SearchProductForm(){
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        // console.log("modal closed")
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        // console.log("modal canceled");
-        setIsModalVisible(false);
-    };
 
     const products = useSelector(state => state.products);
     const [code, setCode] = useState();
@@ -86,25 +72,10 @@ export default function SearchProductForm(){
 
 
     return (
-        <>
-            <Button
-                style={{
-                    padding: 0,
-                    float: 'left',
-                    backgroundColor: 'inherit',
-                    border: 'inherit',
-                    color: 'white'
-                }}
-                onClick={showModal}
-            >
-                Search
-            </Button>
-            <Modal
-                title="Search Product"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
+        <Space direction="vertical">
+            <Space>
+                <Divider/>
+            </Space>
                 <Space
                     style={{marginLeft: 50}}
                 >
@@ -146,11 +117,14 @@ export default function SearchProductForm(){
 
                 <Descriptions
                     labelStyle={{
-                        padding: 10
+                        textAlign: 'center',
+                        padding: 10,
+                        paddingBlock: 10,
+                        width: 100
                     }}
                     contentStyle={{
-                        marginLeft: 200,
-                        paddingLeft: 50
+                        padding: 10,
+                        width: 300,
                     }}
                     column={1}
                     bordered
@@ -171,7 +145,6 @@ export default function SearchProductForm(){
                         {date}
                     </Descriptions.Item>
                 </Descriptions>
-            </Modal>
-        </>
+        </Space>
     );
 }

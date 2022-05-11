@@ -4,7 +4,7 @@ import
 {
     FileOutlined,
     HomeOutlined,
-    PlusSquareOutlined,
+    PlusSquareOutlined, SearchOutlined,
     UserOutlined
 } from "@ant-design/icons";
 import {Layout, Menu, Modal} from "antd";
@@ -57,11 +57,21 @@ export default class MySider extends React.Component{
                             key: 'item 3',
                             icon: <FileOutlined />,
                             label: (<Link to='/products'>
-                                        <span> Product</span>
+                                        <span> Products</span>
                                     </Link>),
                             children: [
                                 {
                                     key: 'item 4',
+                                    icon: <SearchOutlined />,
+                                    label: (
+                                        <Link to='/products/actions'>
+                                            <span> product </span>
+                                        </Link>
+
+                                    )
+                                },
+                                {
+                                    key: 'item 5',
                                     icon: <PlusSquareOutlined />,
                                     label: (
                                         <Link to='/products'>
@@ -69,8 +79,8 @@ export default class MySider extends React.Component{
                                         </Link>)
                                 },
                                 {
-                                    key: 'item 5',
-                                    icon: <PlusSquareOutlined/>,
+                                    key: 'item 6',
+                                    icon: <SearchOutlined />,
                                     label: (
                                         <Link to='/products'>
                                             <span> <SearchProductForm/> </span>

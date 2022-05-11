@@ -31,8 +31,8 @@ export default function ProductsPage(){
                 }}
             >
                 Here are Products!
-                <AddProductForm/>
-                <SearchProductForm/>
+                {/*<AddProductForm/>*/}
+                {/*<SearchProductForm/>*/}
             </Header>
 
             <Table dataSource={products}>

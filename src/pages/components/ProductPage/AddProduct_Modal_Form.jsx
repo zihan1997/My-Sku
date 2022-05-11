@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {Form, Input, Button, Space, Modal, message, Divider} from 'antd';
-
+import {Form, Input, Button, Space, Modal, message, Divider, Tooltip} from 'antd';
+import { ScanOutlined } from "@ant-design/icons";
 import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
 import {productAdded, productEdited} from "../../../reducers/products/productsSlice";
 import CodeReader from "./BarCodeReader/CodeReader";
+import {useNavigate} from "react-router-dom";
 
 export default function AddProductForm() {
-    const [isFinding, setIsFinding] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isFinding,  setIsFinding] = useState(false);
     const [name, setName] = useState(createName());
     const [code, setCode] = useState(createCode());
     const [price, setPrice] = useState(createPrice());
@@ -18,20 +18,8 @@ export default function AddProductForm() {
 
     const products = useSelector(state => state.products);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        // console.log("modal closed")
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        // console.log("modal canceled");
-        setIsModalVisible(false);
-    };
 
     const generateCode = () => {
         setCode(createCode());
@@ -97,6 +85,8 @@ export default function AddProductForm() {
             }else {
                 dispatch(productAdded(code, name, price, quantity, date));
             }
+
+            navigate("products")
         }
         setCode(createCode());
         setName(createName());
@@ -114,28 +104,16 @@ export default function AddProductForm() {
     }
 
     return (
-        <>
-            <Button
-                style={{
-                    padding: 0,
-                    float: 'left',
-                    color: "white",
-                }}
-                type="text"
-                onClick={showModal}
-            >
-                Add Product
-            </Button>
-            <Modal
-                title="Add New Product"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
+
+        <Space direction="vertical">
+
+            <Space>
+                <Divider/>
+            </Space>
                 <Form
                     name="basic"
                     labelCol={{span: 7}}
-                    wrapperCol={{span: 16}}
+                    wrapperCol={{span: 200}}
                     initialValues={{remember: true}}
                     autoComplete="off"
                 >
@@ -147,23 +125,31 @@ export default function AddProductForm() {
                             <Input
                                 value={code}
                                 onChange={e => (setCode(e.target.value))}
+
                             />
+                            <button
+                                onClick={generateCode}
+                            >Generate
+                            </button>
+
                             <Button
                                 type="primary"
                                 onClick={()=>onFetchProduct()}
                             >
                                 Find
                             </Button>
-                            <button
-                                onClick={generateCode}
-                            >Generate
-                            </button>
-                            <button
-                                onClick={()=>setIsScan(true)}
-                            >Scan
-                            </button>
+
                         </Space>
+
+                        <Button
+                            type="primary"
+                            shape={<ScanOutlined />}
+                            onClick={()=>setIsScan(true)}
+                        >Scan
+                        </Button>
+
                     </Form.Item>
+
 
 
                     {isScan ?
@@ -259,7 +245,6 @@ export default function AddProductForm() {
                     </Form.Item>
 
                 </Form>
-            </Modal>
-        </>
+        </Space>
     )
 }
