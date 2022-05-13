@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Scanner from "./Scanner";
-import {Col, message, Modal, Row, Space} from "antd";
+import {Col, message, Row, Space} from "antd";
 import './styles.css'
 
 export default function CodeReader(props){
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [camera, setCamera] = useState(false);
     const [result, setResult] = useState({});
     const [list, setList] = useState([]);
@@ -77,7 +76,7 @@ export default function CodeReader(props){
                     </div>
                     <Space>
                         <button onClick={onClick}>
-                            {!camera && "Press for Scan"}
+                            {!camera && "Press to Scan"}
                         </button>
                         {/*<p >{code}</p>*/}
                     </Space>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {Form, Input, Button, Space, Modal, message, Divider, Tooltip} from 'antd';
+import {Form, Input, Button, Space, message, Divider} from 'antd';
 import { ScanOutlined } from "@ant-design/icons";
 import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
 import {productAdded, productEdited} from "../../../reducers/products/productsSlice";
@@ -94,12 +94,11 @@ export default function AddProductForm() {
         setQuantity(createQuantity());
         setDate(createDate());
 
-        setIsModalVisible(false);
         setIsFinding(false);
     }
 
     const onDetect = (result)=>{
-        console.log("---result : " + result)
+        // console.log("---result : " + result)
         setCode(result)
     }
 
@@ -132,21 +131,23 @@ export default function AddProductForm() {
                             >Generate
                             </button>
 
+                        </Space>
+
+                        <div>
                             <Button
                                 type="primary"
+                                shape={<ScanOutlined/>}
+                                onClick={()=>setIsScan(true)}
+                            >Scan
+                            </Button>
+
+                            <Button
+                                // type="primary"
                                 onClick={()=>onFetchProduct()}
                             >
                                 Find
                             </Button>
-
-                        </Space>
-
-                        <Button
-                            type="primary"
-                            shape={<ScanOutlined />}
-                            onClick={()=>setIsScan(true)}
-                        >Scan
-                        </Button>
+                        </div>
 
                     </Form.Item>
 

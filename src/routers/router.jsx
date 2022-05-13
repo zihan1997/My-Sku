@@ -11,6 +11,7 @@ export default function MyRouter(){
     return(
         <Routes>
             <Route path="/" element={<ProductController/>} />
+            {/*<Route path="/" element={<ProductsPage/>} />*/}
             <Route path="home" element={<WelcomePage/>} />
             <Route path="products" element={<ProductsPage/>}/>
             <Route path="products/actions" element={<ProductController/>}/>

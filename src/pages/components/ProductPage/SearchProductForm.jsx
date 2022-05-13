@@ -1,22 +1,27 @@
 import React, {useEffect, useState} from "react";
-import {Button, Divider, Descriptions, Input, Modal, Select, Space, message} from 'antd';
+import {Button, Divider, Input, Modal, Select, Space, message, Steps} from 'antd';
 import {useSelector} from "react-redux";
 import CodeReader from "./BarCodeReader/CodeReader";
+import * as PropTypes from "prop-types";
+import ProductsTable from "./ProductsTable";
+import {nanoid} from "@reduxjs/toolkit";
 const { Option } = Select;
+const {Step} = Steps;
 
+Step.propTypes = {title: PropTypes.bool};
 export default function SearchProductForm(){
 
 
     const products = useSelector(state => state.products);
-    const [code, setCode] = useState();
-    const [name, setName] = useState();
-    const [price, setPrice] = useState();
-    const [quantity, setQuantity] = useState();
-    const [date, setDate] = useState();
+    const [productsList, setProductsList] = useState(products);
 
     const [option, setOption] = useState();
     const [optVal, setOptVal] = useState();
     const [isCamera, setIsCamera] = useState(false);
+
+    useEffect(()=> {
+        setProductsList(products.slice(0, 10))
+    }, [products])
 
     function onSelect(value) {
         console.log(`selected ${value} ${optVal}`);
@@ -25,7 +30,7 @@ export default function SearchProductForm(){
 
     // Find Button
     function onFindProduct(){
-        let res, product = {};
+        let productsTemp = [], product = {};
 
         if(!option) {
             message.error("Provide search index", 1)
@@ -33,36 +38,33 @@ export default function SearchProductForm(){
         }
         switch (option) {
             case "code":
-                res = "code";
                 setIsCamera(true);
-                product = products.find(one => one.code === optVal)
+                product = products.find(one => one.code === optVal);
+                if(product) productsTemp.push(product)
                 break;
             case "name":
-                res = "name";
-                product = products.find(one => one.name === optVal)
+                let p = products.filter(one => (one.name).includes(optVal));
+                if(p) productsTemp = p;
                 break;
         }
+        // if()
+        giveTotal(productsTemp);
+        setProductsList(productsTemp)
+    }
 
-        message
-            .loading("Finding...", 0.7)
-            .then(()=>{
-                if(product) {
-                    message.success('Found', 1);
-                    setCode(product.code);
-                    setName(product.name);
-                    setPrice(product.price);
-                    setQuantity(product.quantity);
-                    setDate(product.date);
-                }else{
-                    message.error("No such product", 1);
-                    setCode('');
-                    setName('');
-                    setPrice('');
-                    setQuantity('');
-                    setDate('');
-                }
-            })
+    const giveTotal = (productsTemp) => {
+        let total = {code: "None", name: "Total"}
 
+        let price = 0, quantity = 0;
+        for(let product of productsTemp){
+            price += product.price;
+            quantity += product.quantity;
+        }
+        total["key"] = nanoid();
+        total["price"] = price;
+        total["quantity"] = quantity
+
+        productsTemp.push(total);
     }
 
     const onDetect = (result)=>{
@@ -70,81 +72,57 @@ export default function SearchProductForm(){
         setOptVal(result);
     }
 
+    const onReset = ()=>{
+        setProductsList(products);
+
+    }
 
     return (
         <Space direction="vertical">
             <Space>
                 <Divider/>
             </Space>
-                <Space
-                    style={{marginLeft: 50}}
+            <Space
+                // style={{marginLeft: 50}}
+            >
+                <Select
+                    // showSearch
+                    placeholder="_____"
+                    optionFilterProp="children"
+                    onChange={onSelect}
+                    // onSearch={onSearch}
+                    filterOption={(input, option) =>
+                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
                 >
-                    <Select
-                        // showSearch
-                        placeholder="_____"
-                        optionFilterProp="children"
-                        onChange={onSelect}
-                        // onSearch={onSearch}
-                        filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                    >
-                        <Option value="code">Code</Option>
-                        <Option value="name">Name</Option>
-                    </Select>
-                    <Input
-                        value={optVal}
-                        onChange={e=> setOptVal(e.target.value.trim())}
-                    />
-                    <Button
-                        type="primary"
-                        onClick={()=>onFindProduct()}
-                    >Find</Button>
-                </Space>
+                    <Option value="code">Code</Option>
+                    <Option value="name">Name</Option>
+                </Select>
+                <Input
+                    value={optVal}
+                    onChange={e=> setOptVal(e.target.value.trim())}
+                />
+                <Button
+                    type="primary"
+                    onClick={()=>onFindProduct()}
+                >Find</Button>
+                <Button
+                    type="primary"
+                    onClick={()=>(setProductsList(products))}
+                >Reset</Button>
+            </Space>
 
-                <Space direction="horizontal"></Space>
+            {(option === "code")?
+                (
+                    <>
+                        <Divider/>
+                            <CodeReader onDetectCode={onDetect}/>
+                        <Divider/>
+                    </>
+                ):<Divider/>
+            }
 
-                {(option === "code")?
-                    (
-                        <>
-                            <Divider/>
-                                <CodeReader onDetectCode={onDetect}/>
-                            <Divider/>
-                        </>
-                    ):<Divider/>
-                }
-
-
-                <Descriptions
-                    labelStyle={{
-                        textAlign: 'center',
-                        padding: 10,
-                        paddingBlock: 10,
-                        width: 100
-                    }}
-                    contentStyle={{
-                        padding: 10,
-                        width: 300,
-                    }}
-                    column={1}
-                    bordered
-                >
-                    <Descriptions.Item label="code">
-                        {code}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="name">
-                        {name}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="price">
-                        {price}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="quantity">
-                        {quantity}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="date">
-                        {date}
-                    </Descriptions.Item>
-                </Descriptions>
+            <ProductsTable products={productsList}/>
         </Space>
     );
 }

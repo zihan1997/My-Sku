@@ -4,17 +4,12 @@ import
 {
     FileOutlined,
     HomeOutlined,
-    PlusSquareOutlined, SearchOutlined,
+    SearchOutlined,
     UserOutlined
 } from "@ant-design/icons";
-import {Layout, Menu, Modal} from "antd";
+import {Layout, Menu} from "antd";
 const { Sider } = Layout;
-const {
-    Item
-} = Menu
 import './index.scss'
-import AddProductForm from "../components/ProductPage/AddProduct_Modal_Form";
-import SearchProductForm from "../components/ProductPage/SearchProductForm";
 
 export default class MySider extends React.Component{
 
@@ -66,7 +61,7 @@ export default class MySider extends React.Component{
                                     icon: <SearchOutlined />,
                                     label: (
                                         <Link to='/products/actions'>
-                                            <span> product </span>
+                                            <span> Manage </span>
                                         </Link>
 
                                     )
