@@ -1,26 +1,43 @@
 ## Feature List
 
-### Browsing through Nav bar on the left
+### Side Navigator
 
-### ![](readme/NavBar.png)
+### ![](readme/side_navigator.png)
 
-### Click Products
+---
+
+### Products Page
 * listing the inventory
 ![](readme/list.png)
-* Add new product to the list
-  * Option 1: create manually by providing **Code** and **Name**
-    
-  * Option 2: click **Auto Fill Data** to generate data self
 
-![](readme/addProduct.png)
+---
 
-* Action: **Delete**
+### Product Management
+![](readme/product_manage.png)
+
+---
+
+Action: **Search**
+* search by Barcode
+  * with additional barcode reader from QuaggaJS
+* search by name
+  * return a list of matching
+  
+`All actions in the table are supported`
+
+---
+
+![](readme/add.png)
+* Action: **Add**
+  * generate fake code 
+  * scan from a real product with scanner
+
+---
+
+* Action: **Delete** `as the same before`
   * Remove a row from the data list
   
-* Dev Progress
-  * Console Outputs for clarity
+---
 
- ![](readme/consoleOutput.png)
-
-  * LocalStory: this is where all products are stored
-    ![](readme/localStorage.png)
+* Data Structure migrates to Redux
+  * reducer is used to store temporary date
