@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Form, Input, Modal, Space} from "antd";
+import {Button, Form, Input, message, Modal, Space} from "antd";
 import {createDate, createName, createPrice, createQuantity} from "./productGenerator";
 import {productEdited} from "../../../reducers/products/productsSlice";
 import {useDispatch} from "react-redux";
@@ -9,6 +9,11 @@ export default function EditProduct_Modal_Form(props){
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
+
+        if(product.code === "None"){
+            message.error("This is Total sum row, CANNOT Edit!");
+            return;
+        }
         setIsModalVisible(true);
     };
 

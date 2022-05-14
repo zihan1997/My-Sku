@@ -53,7 +53,7 @@ export default function SearchProductForm(){
     }
 
     const giveTotal = (productsTemp) => {
-        let total = {code: "None", name: "Total"}
+        let total = {code: "None", name: <strong>Total</strong>}
 
         let price = 0, quantity = 0;
         for(let product of productsTemp){
@@ -61,8 +61,9 @@ export default function SearchProductForm(){
             quantity += product.quantity;
         }
         total["key"] = nanoid();
-        total["price"] = price;
-        total["quantity"] = quantity
+        total["price"] = <strong>{price}</strong>;
+        total["quantity"] = <strong>{quantity}</strong>
+        total["date"] = <strong>-</strong>
 
         productsTemp.push(total);
     }
