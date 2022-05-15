@@ -151,17 +151,17 @@ export default function AddProductForm() {
 
                     </Form.Item>
 
+                    {/* code reader comment out for now*/}
 
-
-                    {isScan ?
-                        (
-                            <>
-                            <Divider/>
-                                <CodeReader onDetectCode={onDetect}/>
-                            <Divider/>
-                            </>
-                        ): ""
-                    }
+                    {/*{isScan ?*/}
+                    {/*    (*/}
+                    {/*        <>*/}
+                    {/*        <Divider/>*/}
+                    {/*            <CodeReader onDetectCode={onDetect}/>*/}
+                    {/*        <Divider/>*/}
+                    {/*        </>*/}
+                    {/*    ): ""*/}
+                    {/*}*/}
 
 
                     <Form.Item

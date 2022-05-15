@@ -113,15 +113,17 @@ export default function SearchProductForm(){
                 >Reset</Button>
             </Space>
 
-            {(option === "code")?
-                (
-                    <>
-                        <Divider/>
-                            <CodeReader onDetectCode={onDetect}/>
-                        <Divider/>
-                    </>
-                ):<Divider/>
-            }
+            {/* code reader comment out for now */}
+
+            {/*{(option === "code")?*/}
+            {/*    (*/}
+            {/*        <>*/}
+            {/*            <Divider/>*/}
+            {/*                <CodeReader onDetectCode={onDetect}/>*/}
+            {/*            <Divider/>*/}
+            {/*        </>*/}
+            {/*    ):<Divider/>*/}
+            {/*}*/}
 
             <ProductsTable products={productsList}/>
         </Space>
