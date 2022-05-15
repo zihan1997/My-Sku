@@ -29,7 +29,7 @@ const initialState = [
     {
         key: nanoid(),
         code: "6901668005755",
-        name: "Recycled Wooden Ball",
+        name: "Cookies(real)",
         price: 10,
         quantity: 3,
         date: "Wed May 11 2022",
@@ -54,7 +54,6 @@ const productsSlice = createSlice({
                         price,
                         quantity,
                         date,
-                        // date: new Date().toISOString(),
                     }
                 }
             }
