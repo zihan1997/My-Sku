@@ -1,4 +1,5 @@
-import {createSlice, nanoid} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
+import axios from 'axios';
 // import { sub } from 'date-fns'
 
 const initialState = [
@@ -77,3 +78,7 @@ const productsSlice = createSlice({
 
 export const {productAdded, productDeleted, productEdited} = productsSlice.actions;
 export default productsSlice.reducer;
+
+export const selectAllProducts = (state) => state.products.products;
+
+export const selectProducts = (state, key) => state.products.products.find((product) => product.key === key)

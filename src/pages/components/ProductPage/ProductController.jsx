@@ -5,16 +5,24 @@ import SearchProductForm from "./SearchProductForm";
 import AddProductForm from "./AddProduct_Form";
 import EditProduct_Modal_Form from "./EditProduct_Modal_Form";
 const { TabPane } = Tabs;
-
+import {useGetProductsQuery} from "../../../reducers/api/apiSlice";
 
 export default function ProductController(){
 
-    const navigate = useNavigate();
-    // useEffect(()=> {
-    //
-    //     // return navigate('/products')
-    // }, []);
+    const {
+        data: products,
+        isFetching,
+        isSuccess,
+    } = useGetProductsQuery();
 
+    useEffect(()=> {
+        console.log("in productController")
+        if(isSuccess)
+            console.log(products);
+        console.log("----- End -----")
+    }, []);
+
+    const navigate = useNavigate();
     return(
         <PageHeader
             className="product-action-header"

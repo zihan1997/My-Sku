@@ -2,7 +2,7 @@
 
 const {Model} = require('objection');
 const Knex = require('knex')
-const config = require('./config')
+const config = require('../config')
 
 const knex = Knex(config)
 Model.knex(knex);
@@ -27,6 +27,8 @@ class Product extends Model{
 
 }
 
+module.exports = Product;
+
 async function main(){
     const product = await Product.query().findById(1);
     console.log(product);
@@ -41,9 +43,9 @@ async function main(){
     // console.log('test: ' + test)
     console.log(await Product.query())
 }
-main()
-    .then(()=> knex.destroy())
-    .catch(err=>{
-        console.log(err);
-        return knex.destroy();
-    })
+// main()
+//     .then(()=> knex.destroy())
+//     .catch(err=>{
+//         console.log(err);
+//         return knex.destroy();
+//     })
