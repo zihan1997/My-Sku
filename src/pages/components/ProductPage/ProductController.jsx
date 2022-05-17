@@ -16,11 +16,12 @@ export default function ProductController(){
     } = useGetProductsQuery();
 
     useEffect(()=> {
-        console.log("in productController")
-        if(isSuccess)
+        if(isSuccess) {
+            console.log("in productController")
             console.log(products);
-        console.log("----- End -----")
-    }, []);
+            console.log("----- End -----")
+        }
+    }, [products]);
 
     const navigate = useNavigate();
     return(
