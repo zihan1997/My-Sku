@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Button, Divider, Input, Modal, Select, Space, message, Steps} from 'antd';
+import {Button, Divider, Input, Select, Space, message, Steps} from 'antd';
 import {useSelector} from "react-redux";
-import CodeReader from "./BarCodeReader/CodeReader";
+import CodeReader from "../BarCodeReader/CodeReader";
 import * as PropTypes from "prop-types";
-import ProductsTable from "./ProductsTable";
+import ProductsTable from "../ProductsTable";
 import {nanoid} from "@reduxjs/toolkit";
 const { Option } = Select;
 const {Step} = Steps;
@@ -20,7 +20,7 @@ export default function SearchProductForm(){
     const [isCamera, setIsCamera] = useState(false);
 
     useEffect(()=> {
-        setProductsList(products.slice(0, 10))
+        setProductsList(products)
     }, [products])
 
     function onSelect(value) {

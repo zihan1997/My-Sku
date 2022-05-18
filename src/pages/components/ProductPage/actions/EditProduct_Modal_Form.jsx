@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Button, Form, Input, message, Modal, Space} from "antd";
-import {createDate, createName, createPrice, createQuantity} from "./productGenerator";
-import {productEdited} from "../../../reducers/products/productsSlice";
-import {useDispatch} from "react-redux";
+import {createDate, createName, createPrice, createQuantity} from "../productGenerator";
+import {productEdited} from "../../../../reducers/products/productsSlice";
+import {useEditProductMutation} from "../../../../reducers/api/apiSlice";
 
 
 export default function EditProduct_Modal_Form(props){
@@ -32,8 +32,6 @@ export default function EditProduct_Modal_Form(props){
     const [quantity, setQuantity] = useState(product.quantity);
     const [date, setDate] = useState(product.date)
 
-    const dispatch = useDispatch();
-
     const generateName = () => {
         setName(createName());
     }
@@ -50,13 +48,30 @@ export default function EditProduct_Modal_Form(props){
         setDate(createDate());
     }
 
-    const onProductEdit = () => {
-        dispatch(productEdited(
-            {
+    // before
+    // const dispatch = useDispatch();
+    // after
+    const [editProduct, {isLoading}] = useEditProductMutation();
+    const onProductEdit = async () => {
+        try {
+            await editProduct({
                 key: product.key,
-                replace: {name: name, quantity: quantity, price: price}
-            }
-        ));
+                code: product.code,
+                name: name,
+                quantity: quantity,
+                price: price,
+                date: new Date().toISOString()
+            });
+        }catch (err){
+            console.log('failed to save the product: ', err)
+        }
+        // use dispatch
+        // dispatch(productEdited(
+        //     {
+        //         key: product.key,
+        //         replace: {name: name, quantity: quantity, price: price}
+        //     }
+        // ));
         setIsModalVisible(false);
     }
 

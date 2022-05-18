@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {PageHeader, Tabs, Button,} from 'antd';
-import SearchProductForm from "./SearchProductForm";
-import AddProductForm from "./AddProduct_Form";
-import EditProduct_Modal_Form from "./EditProduct_Modal_Form";
+import SearchProductForm from "./actions/SearchProductForm";
+import AddProductForm from "./actions/AddProduct_Form";
+// import EditProduct_Modal_Form from "./actions/EditProduct_Modal_Form";
 const { TabPane } = Tabs;
 import {useGetProductsQuery} from "../../../reducers/api/apiSlice";
 
@@ -21,7 +21,7 @@ export default function ProductController(){
             console.log(products);
             console.log("----- End -----")
         }
-    }, [products]);
+    }, []);
 
     const navigate = useNavigate();
     return(

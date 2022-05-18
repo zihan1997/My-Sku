@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {Form, Input, Button, Space, message, Divider} from 'antd';
 import { ScanOutlined } from "@ant-design/icons";
-import {createCode, createName, createPrice, createQuantity, createDate} from "./productGenerator";
-import {productAdded, productEdited} from "../../../reducers/products/productsSlice";
-import CodeReader from "./BarCodeReader/CodeReader";
+import {createCode, createName, createPrice, createQuantity, createDate} from "../productGenerator";
+import {productAdded, productEdited} from "../../../../reducers/products/productsSlice";
+import CodeReader from "../BarCodeReader/CodeReader";
 import {useNavigate} from "react-router-dom";
 
 export default function AddProductForm() {

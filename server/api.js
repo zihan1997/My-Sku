@@ -13,7 +13,7 @@ module.exports = (router) => {
     /* get the full list of products */
     router.get('/products', async (ctx)=>{
         const query = Product.query();
-        console.log(query)
+        console.log("get products list")
         if(query){
             ctx.status = 200;
             ctx.type = 'json';
@@ -36,13 +36,14 @@ module.exports = (router) => {
         // })
         // ctx.body = insertedGraph;
 
+        console.log("create new product", ctx.request.body);
         ctx.body = await Product.query().insert(ctx.request.body)
     })
 
     /* get exact product by id */
     router.get('/products/:key', async (ctx)=>{
         const query = await Product.query().findById(ctx.params.key);
-        console.log(query)
+        console.log('get product by id ', ctx.params.key)
         ctx.body = query;
     })
 
@@ -50,6 +51,7 @@ module.exports = (router) => {
     *  assume what've been update here contains complete JSON data
     * */
     router.patch('/products/:key', async ctx => {
+        console.log("update product ", ctx.params.key);
         const data = ctx.request.body;
         const instance = await Product.query()
             .findById(ctx.params.key)
