@@ -3,10 +3,7 @@ import MyTopBar from "./topbar";
 import 'antd/dist/antd.css';
 import './index.scss';
 import MySider from "./sider";
-import {Breadcrumb, Layout} from 'antd';
-// const { Header, Sider, Content } = Layout;
-// import Test from './test'
-// import {Link} from "react-router-dom";
+import { Layout} from 'antd';
 import MyContent from "./content";
 
 

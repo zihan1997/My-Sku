@@ -1,5 +1,23 @@
-### Diagram for managing Postgresql
+
+## new
+
+* Backend <---> Postgresql
+
+the majority difference is the usage of Postgresql 
+and the corresponding ORM(objection js) on the backend.
+
+Koa2 is used to be the backend since it's 
+the next generation of Express JS
+
+* Frontend <---> Backend
+
+the communication between frontend and backend is
+decided to use redux's rtk query which provide convenient
+and support.
+
 ![](readme/pg-koa.png)
+
+---
 
 ## Feature List
 
