@@ -9,19 +9,6 @@ import {useGetProductsQuery} from "../../../reducers/api/apiSlice";
 
 export default function ProductController(){
 
-    const {
-        data: products,
-        isFetching,
-        isSuccess,
-    } = useGetProductsQuery();
-
-    useEffect(()=> {
-        if(isSuccess) {
-            console.log("in productController")
-            console.log(products);
-            console.log("----- End -----")
-        }
-    }, []);
 
     const navigate = useNavigate();
     return(

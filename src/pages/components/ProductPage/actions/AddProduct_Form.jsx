@@ -25,8 +25,6 @@ export default function AddProductForm() {
     const [editProduct] = useEditProductMutation();
     const [getProductByCode] = useSearchProductsByCodeMutation();
 
-    // const products = useSelector(state => state.products);
-    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
