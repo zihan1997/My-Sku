@@ -11,6 +11,26 @@ export const apiSlice = createApi({
             query: ()=>'/products',
             providesTags: ['Product']
         }),
+
+        // searchProductsByCode: builder.query({
+        //     query: (code)=> `/products/code/${code}`,
+        //     providesTags: ['Product']
+        // }),
+        searchProductsByCode: builder.mutation({
+            query: (code)=> ({
+                url: `/products/code/${code}`,
+                method: 'GET'
+            }),
+            providesTags: ['Product']
+        }),
+        searchProductsByName: builder.mutation({
+            query: (name)=>({
+                url: `/products/name/${name}`,
+                method: 'GET'
+            }),
+            providesTags: ['Product']
+        }),
+
         addNewProduct: builder.mutation({
             query: initialProduct => ({
                 url: '/products',
@@ -39,6 +59,8 @@ export const apiSlice = createApi({
 
 export const {
     useGetProductsQuery,
+    useSearchProductsByCodeMutation,
+    useSearchProductsByNameMutation,
     useAddNewProductMutation,
     useEditProductMutation,
     useDeleteProductMutation,

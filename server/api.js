@@ -23,6 +23,36 @@ module.exports = (router) => {
         }
     });
 
+    /* get exact product by id */
+    router.get('/products/:key', async (ctx)=>{
+        const query = await Product.query().findById(ctx.params.key);
+        console.log('get product by id ', ctx.params.key)
+        ctx.body = query;
+    })
+
+    /*
+    * Get the row by non-key cols
+    *  */
+    router.get('/products/code/:code', async ctx=>{
+        let code = ctx.params.code;
+        console.log("searching by code " + code);
+        const query = Product.query().where({
+            code: code
+        });
+        ctx.body = await query;
+    })
+
+    /*
+    * fuzzy searching by name
+    *  */
+    router.get('/products/name/:name', async ctx=>{
+        let name = ctx.params.name;
+        console.log("searching by name " + name);
+        const query = Product.query().orWhereRaw('name like ?', `%${name}%`);
+        ctx.body = await query;
+    })
+
+
     /* insert a new product
     *  assume redux has checked for type corrections
     * */
@@ -38,13 +68,6 @@ module.exports = (router) => {
 
         console.log("create new product", ctx.request.body);
         ctx.body = await Product.query().insert(ctx.request.body)
-    })
-
-    /* get exact product by id */
-    router.get('/products/:key', async (ctx)=>{
-        const query = await Product.query().findById(ctx.params.key);
-        console.log('get product by id ', ctx.params.key)
-        ctx.body = query;
     })
 
     /* update corresponding product
@@ -68,4 +91,5 @@ module.exports = (router) => {
     router.delete('/products/:key', async ctx => {
         const del = await Product.query().deleteById(ctx.params.key)
     })
+
 }

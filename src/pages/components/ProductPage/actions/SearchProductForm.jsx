@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Button, Divider, Input, Select, Space, message, Steps} from 'antd';
-import {useSelector} from "react-redux";
 import CodeReader from "../BarCodeReader/CodeReader";
+import {
+    useGetProductsQuery,
+    useSearchProductsByCodeMutation,
+    useSearchProductsByNameMutation
+} from "../../../../reducers/api/apiSlice";
 import * as PropTypes from "prop-types";
 import ProductsTable from "../ProductsTable";
 import {nanoid} from "@reduxjs/toolkit";
@@ -11,25 +15,30 @@ const {Step} = Steps;
 Step.propTypes = {title: PropTypes.bool};
 export default function SearchProductForm(){
 
+    const {data: products} = useGetProductsQuery();
+    const [getCode] = useSearchProductsByCodeMutation();
+    const [getName] = useSearchProductsByNameMutation();
 
-    const products = useSelector(state => state.products);
-    const [productsList, setProductsList] = useState(products);
-
+    // search options: code, name
     const [option, setOption] = useState();
-    const [optVal, setOptVal] = useState();
+    // search input
+    const [searchedVal, setSearchedVal] = useState();
+    // generate table with searched option
+    const [searchOutputTable, setSearchOutputTable] = useState();
+    // camera settings
     const [isCamera, setIsCamera] = useState(false);
 
     useEffect(()=> {
-        setProductsList(products)
+        setSearchOutputTable(products)
     }, [products])
 
     function onSelect(value) {
-        console.log(`selected ${value} ${optVal}`);
+        console.log(`selected ${value} ${searchedVal}`);
         setOption(value);
     }
 
     // Find Button
-    function onFindProduct(){
+    const onFindProduct = async () => {
         let productsTemp = [], product = {};
 
         if(!option) {
@@ -39,17 +48,17 @@ export default function SearchProductForm(){
         switch (option) {
             case "code":
                 setIsCamera(true);
-                product = products.find(one => one.code === optVal);
-                if(product) productsTemp.push(product)
+                product = await getCode(searchedVal).unwrap();
+                if(product) productsTemp.push(product[0])
                 break;
             case "name":
-                let p = products.filter(one => (one.name).includes(optVal));
-                if(p) productsTemp = p;
+                let getNamePromise = await getName(searchedVal).unwrap();
+                productsTemp.push(getNamePromise[0]);
                 break;
         }
-        // if()
+
         giveTotal(productsTemp);
-        setProductsList(productsTemp)
+        setSearchOutputTable(productsTemp)
     }
 
     const giveTotal = (productsTemp) => {
@@ -63,18 +72,18 @@ export default function SearchProductForm(){
         total["key"] = nanoid();
         total["price"] = <strong>{price}</strong>;
         total["quantity"] = <strong>{quantity}</strong>
-        total["date"] = <strong>-</strong>
+        total["date"] = <strong>{new Date().toISOString()}</strong>
 
         productsTemp.push(total);
     }
 
     const onDetect = (result)=>{
         // console.log("---result : " + result)
-        setOptVal(result);
+        setSearchedVal(result);
     }
 
     const onReset = ()=>{
-        setProductsList(products);
+        setSearchOutputTable(products);
 
     }
 
@@ -100,8 +109,8 @@ export default function SearchProductForm(){
                     <Option value="name">Name</Option>
                 </Select>
                 <Input
-                    value={optVal}
-                    onChange={e=> setOptVal(e.target.value.trim())}
+                    value={searchedVal}
+                    onChange={e=> setSearchedVal(e.target.value.trim())}
                 />
                 <Button
                     type="primary"
@@ -109,7 +118,7 @@ export default function SearchProductForm(){
                 >Find</Button>
                 <Button
                     type="primary"
-                    onClick={()=>(setProductsList(products))}
+                    onClick={()=>(setSearchOutputTable([]))}
                 >Reset</Button>
             </Space>
 
@@ -125,7 +134,7 @@ export default function SearchProductForm(){
             {/*    ):<Divider/>*/}
             {/*}*/}
 
-            <ProductsTable products={productsList}/>
+            <ProductsTable products={searchOutputTable}/>
         </Space>
     );
 }

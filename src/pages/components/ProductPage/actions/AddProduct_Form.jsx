@@ -6,6 +6,7 @@ import {createCode, createName, createPrice, createQuantity, createDate} from ".
 import {productAdded, productEdited} from "../../../../reducers/products/productsSlice";
 import CodeReader from "../BarCodeReader/CodeReader";
 import {useNavigate} from "react-router-dom";
+import {useAddNewProductMutation, useGetProductsQuery} from "../../../../reducers/api/apiSlice";
 
 export default function AddProductForm() {
     const [isFinding,  setIsFinding] = useState(false);
@@ -16,8 +17,11 @@ export default function AddProductForm() {
     const [date, setDate] = useState(new Date().toDateString());
     const [isScan, setIsScan] = useState(false);
 
-    const products = useSelector(state => state.products);
-    const dispatch = useDispatch();
+    const {data: products} = useGetProductsQuery();
+    const [addProduct] = useAddNewProductMutation();
+
+    // const products = useSelector(state => state.products);
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
