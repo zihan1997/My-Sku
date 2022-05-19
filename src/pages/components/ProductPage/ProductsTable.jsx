@@ -2,8 +2,6 @@ import React from "react";
 import {Table, Space, message} from "antd";
 const { Column} = Table;
 import EditProduct_Modal_Form from "./actions/EditProduct_Modal_Form";
-// import {productDeleted} from "../../../reducers/products/productsSlice";
-import {useDispatch} from "react-redux";
 import {useDeleteProductMutation} from "../../../reducers/api/apiSlice";
 
 export default function ProductsTable(props){
@@ -17,7 +15,6 @@ export default function ProductsTable(props){
             return;
         }
         console.log("key: " + rec.key)
-        // dispatch(productDeleted({key: rec.key}));
         await deleteProductById(rec.key)
     }
 

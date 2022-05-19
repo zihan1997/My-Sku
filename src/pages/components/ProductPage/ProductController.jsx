@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import {PageHeader, Tabs, Button,} from 'antd';
 import SearchProductForm from "./actions/SearchProductForm";
 import AddProductForm from "./actions/AddProduct_Form";
-// import EditProduct_Modal_Form from "./actions/EditProduct_Modal_Form";
 const { TabPane } = Tabs;
 
 export default function ProductController(){

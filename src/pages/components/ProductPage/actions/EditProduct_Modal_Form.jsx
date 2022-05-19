@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Button, Form, Input, message, Modal, Space} from "antd";
 import {createDate, createName, createPrice, createQuantity} from "../productGenerator";
-import {productEdited} from "../../../../reducers/products/productsSlice";
 import {useEditProductMutation} from "../../../../reducers/api/apiSlice";
 
 
@@ -48,10 +47,7 @@ export default function EditProduct_Modal_Form(props){
         setDate(createDate());
     }
 
-    // before
-    // const dispatch = useDispatch();
-    // after
-    const [editProduct, {isLoading}] = useEditProductMutation();
+    const [editProduct,] = useEditProductMutation();
     const onProductEdit = async () => {
         try {
             await editProduct({
@@ -65,13 +61,6 @@ export default function EditProduct_Modal_Form(props){
         }catch (err){
             console.log('failed to save the product: ', err)
         }
-        // use dispatch
-        // dispatch(productEdited(
-        //     {
-        //         key: product.key,
-        //         replace: {name: name, quantity: quantity, price: price}
-        //     }
-        // ));
         setIsModalVisible(false);
     }
 

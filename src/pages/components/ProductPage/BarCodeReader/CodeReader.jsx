@@ -8,7 +8,7 @@ export default function CodeReader(props){
     const [camera, setCamera] = useState(false);
     const [result, setResult] = useState({});
     const [list, setList] = useState([]);
-    const [codeMap, setCodeMap] = useState({"0": 1})
+    const [codeMap, setCodeMap] = useState({"0": 0})
     const [code, setCode] = useState("");
 
     useEffect(()=>{
