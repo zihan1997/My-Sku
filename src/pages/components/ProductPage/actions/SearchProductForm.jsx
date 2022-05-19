@@ -37,6 +37,11 @@ export default function SearchProductForm(){
         setOption(value);
     }
 
+    // reset the table
+    const onReset = ()=>{
+        setSearchOutputTable([]);
+    }
+
     // Find Button
     const onFindProduct = async () => {
         let productsTemp = [], product = {};
@@ -48,17 +53,25 @@ export default function SearchProductForm(){
         switch (option) {
             case "code":
                 setIsCamera(true);
+                if(!parseInt(searchedVal)){
+                    message.error("Invalid code! code should be numbers", 1);
+                    return;
+                }
                 product = await getCode(searchedVal).unwrap();
                 if(product) productsTemp.push(product[0])
                 break;
             case "name":
                 let getNamePromise = await getName(searchedVal).unwrap();
-                productsTemp.push(getNamePromise[0]);
+                productsTemp = productsTemp.concat(getNamePromise);
                 break;
         }
-
-        giveTotal(productsTemp);
-        setSearchOutputTable(productsTemp)
+        if(productsTemp && productsTemp[0]) {
+            giveTotal(productsTemp);
+            setSearchOutputTable(productsTemp)
+        }else{
+            message.error('Not found', 1);
+            setSearchOutputTable([])
+        }
     }
 
     const giveTotal = (productsTemp) => {
@@ -80,11 +93,6 @@ export default function SearchProductForm(){
     const onDetect = (result)=>{
         // console.log("---result : " + result)
         setSearchedVal(result);
-    }
-
-    const onReset = ()=>{
-        setSearchOutputTable(products);
-
     }
 
     return (

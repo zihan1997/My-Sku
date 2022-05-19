@@ -12,10 +12,6 @@ export const apiSlice = createApi({
             providesTags: ['Product']
         }),
 
-        // searchProductsByCode: builder.query({
-        //     query: (code)=> `/products/code/${code}`,
-        //     providesTags: ['Product']
-        // }),
         searchProductsByCode: builder.mutation({
             query: (code)=> ({
                 url: `/products/code/${code}`,

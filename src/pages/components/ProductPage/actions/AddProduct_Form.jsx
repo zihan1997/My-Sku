@@ -1,12 +1,14 @@
 import React, {useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {Form, Input, Button, Space, message, Divider} from 'antd';
-import { ScanOutlined } from "@ant-design/icons";
-import {createCode, createName, createPrice, createQuantity, createDate} from "../productGenerator";
-import {productAdded, productEdited} from "../../../../reducers/products/productsSlice";
-import CodeReader from "../BarCodeReader/CodeReader";
+import {Button, Divider, Form, Input, message, Space} from 'antd';
+import {ScanOutlined} from "@ant-design/icons";
+import {createCode, createDate, createName, createPrice, createQuantity} from "../productGenerator";
 import {useNavigate} from "react-router-dom";
-import {useAddNewProductMutation, useGetProductsQuery} from "../../../../reducers/api/apiSlice";
+import {
+    useAddNewProductMutation,
+    useEditProductMutation,
+    useGetProductsQuery,
+    useSearchProductsByCodeMutation
+} from "../../../../reducers/api/apiSlice";
 
 export default function AddProductForm() {
     const [isFinding,  setIsFinding] = useState(false);
@@ -19,6 +21,9 @@ export default function AddProductForm() {
 
     const {data: products} = useGetProductsQuery();
     const [addProduct] = useAddNewProductMutation();
+    const [getCode] = useSearchProductsByCodeMutation();
+    const [editProduct] = useEditProductMutation();
+    const [getProductByCode] = useSearchProductsByCodeMutation();
 
     // const products = useSelector(state => state.products);
     // const dispatch = useDispatch();
@@ -31,22 +36,19 @@ export default function AddProductForm() {
     const generateName = () => {
       setName(createName());
     }
-
     const generateQuantity = ()=>{
         setQuantity(createQuantity());
     }
-
     const generatePrice = ()=> {
         setPrice(createPrice());
     }
-
     const generateDate = () => {
         setDate(createDate());
     }
 
     const onFetchProduct = () => {
         message
-            .loading("Validating...", 0.2)
+            .loading("Validating...", 1)
             .then(()=>{
                 let existing = products.find(product => product.code === code);
                 if(existing){
@@ -72,22 +74,28 @@ export default function AddProductForm() {
                     && Boolean(quantity)
                     && Boolean(date);
 
-    const handSubmitClick = ()=>{
+    const handSubmitClick = async ()=>{
         console.log("submit")
         if(canSave){
-            let existing = products.find((product) => product.code === code);
-            if(existing){
+            let existing = await getProductByCode(code).unwrap();
+            if(existing.length){
                 setIsFinding(true);
-                dispatch(productEdited({
-                    key:(existing.key),
-                    replace: {
-                        name: existing.name,
-                        quantity: + parseInt(existing.quantity) + parseInt(quantity),
-                        price: existing.price
-                    }
-                }));
+                await editProduct({
+                    key: existing.key,
+                    code: existing.code,
+                    name: existing.name,
+                    quantity: + parseInt(existing.quantity) + parseInt(quantity),
+                    price: existing.price,
+                    date: new Date().toISOString(),
+                })
             }else {
-                dispatch(productAdded(code, name, price, quantity, date));
+                await addProduct({
+                    code: code,
+                    name: name,
+                    quantity: parseInt(quantity),
+                    price: price,
+                    date: date
+                }).unwrap()
             }
 
             navigate("../products")
@@ -99,6 +107,10 @@ export default function AddProductForm() {
         setDate(createDate());
 
         setIsFinding(false);
+    }
+
+    const getExistingProductQuantity = async ()=> {
+        return (await getProductByCode(code)).quantity;
     }
 
     const onDetect = (result)=>{
@@ -189,6 +201,8 @@ export default function AddProductForm() {
                         label="Quantity"
                         help={isFinding?
                                 <a style={{color:"green"}}>currently in stock: {
+                                    // todo find a way to replace this,
+                                    //  currently meet a error of too many re-render
                                     products.find(product => product.code === code).quantity
                                 }</a>
                                 : ""
