@@ -10,8 +10,9 @@ import ProductController from "../pages/components/ProductPage/ProductController
 export default function MyRouter(){
     return(
         <Routes>
-            <Route path="/" element={<ProductController/>} />
+            {/*<Route path="/" element={<ProductController/>} />*/}
             {/*<Route path="/" element={<ProductsPage/>} />*/}
+            <Route path="/" element={<WelcomePage/>} />
             <Route path="home" element={<WelcomePage/>} />
             <Route path="products" element={<ProductsPage/>}/>
             <Route path="products/actions" element={<ProductController/>}/>
