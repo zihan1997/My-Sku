@@ -33,7 +33,7 @@ export default function SearchProductForm(){
     }, [products])
 
     function onSelect(value) {
-        console.log(`selected ${value} ${searchedVal}`);
+        // console.log(`selected ${value} ${searchedVal}`);
         setOption(value);
     }
 
