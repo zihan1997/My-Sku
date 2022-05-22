@@ -1,5 +1,21 @@
 
-## new
+## Current Implementation
+
+#### docker instruction
+
+```bash
+docker build -f Dockerfile.backend -t my-sku-backend
+```
+```bash
+docker build -f Dockerfile.frontend -t my-sku-frontend
+```
+```bash
+docker-compose up
+```
+
+---
+
+History
 
 * Backend <---> Postgresql
 
