@@ -24,6 +24,6 @@ const {Model} = require('objection');
 const knex = Knex(knexConfig)
 Model.knex(knex);
 
-const port = process.env.KOAPORT;
+const port = process.env.KOA_PORT;
 app.listen(port);
 console.log("Server running at port " + port)
