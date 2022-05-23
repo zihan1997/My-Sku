@@ -2,11 +2,11 @@
 
 FROM node:16.14.2
 
-WORKDIR /app
+WORKDIR /api
 
 COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install
-COPY server .
+COPY ["./server/", "./"]
 
 CMD ["node", "app.js"]

@@ -4,13 +4,13 @@
 #### docker instruction
 
 ```bash
-docker build -f Dockerfile.backend -t my-sku-backend
+docker build -f Dockerfile.backend -t my-sku-backend .
 ```
 ```bash
-docker build -f Dockerfile.frontend -t my-sku-frontend
+docker build -f Dockerfile.frontend -t my-sku-frontend .
 ```
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ---

@@ -38,8 +38,7 @@ services:
     build: ./server
     environment:
       PG_CONNECTION_STRING: postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
-#      PG_CONNECTION_STRING: postgresql://${postgres}:postgres@db:5432/my-sku-db
-
+      KOAPORT: 3001
     depends_on:
       - db
     networks:
