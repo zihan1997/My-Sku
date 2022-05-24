@@ -26,4 +26,4 @@ Model.knex(knex);
 
 const port = process.env.KOA_PORT;
 app.listen(port);
-console.log("Server running at port " + port)
+console.log("t:Server running at port " + port + " " + process.env.PG_CONNECTION_STRING)

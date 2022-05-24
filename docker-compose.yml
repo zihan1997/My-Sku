@@ -37,7 +37,7 @@ services:
       - "3001:3001"
     build: ./server
     environment:
-      PG_CONNECTION_STRING: postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      PG_CONNECTION_STRING: database-postgres.cxnilp5uxbio.us-west-1.rds.amazonaws.com:5432/postgres
       KOA_PORT: 3001
     depends_on:
       - db
