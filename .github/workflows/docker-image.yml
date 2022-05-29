@@ -14,7 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Build Frontend
       run: docker build -f Dockerfile.frontend -t bluebuug:frontend .
+    - name: Push Frontend
+      run: docker push bluebuug/my-sku-app:frontend
+
     - name: Build Backend
       run: docker build -f Dockerfile.backend -t bluebuug:backend .
+    - name: Push Backend
+      run: docker push bluebuug/my-sku-app:backend
