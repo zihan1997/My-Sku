@@ -1,0 +1,44 @@
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  color: white;
+}
+
+.header-text{
+  text-align: right;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+.ant-layout ant-layout-has-sider{
+  height: auto;
+  overflow-y: scroll;
+}
+section{
+  //height: 900px;
+  padding-bottom: 0;
+  height: 100%;
+}
+
+//#content{
+//  padding-bottom: initial;
+//  font-size: 20px;
+//  //height: 1000px;
+//  line-height: 50px;
+//  overflow: initial;
+//}

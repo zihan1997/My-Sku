@@ -1,0 +1,65 @@
+version: '3.9'
+services:
+  db:
+    image: "postgres:14-alpine"
+    volumes:
+      - pg-data:/var/lib/postgres/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-net
+    user: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: my-sku-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  pgAdmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    networks:
+      - pg-net
+    volumes:
+      - pg-data:/var/lib/postgres/data
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  backend:
+    image: my-sku-backend
+    ports:
+      - "3001:3001"
+    build: ./server
+    environment:
+      PG_CONNECTION_STRING: database-postgres.cxnilp5uxbio.us-west-1.rds.amazonaws.com:5432/postgres
+      KOA_PORT: 3001
+    depends_on:
+      - db
+    networks:
+      - pg-net
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - .:/app/server
+
+  frontend:
+    image: my-sku-frontend
+    build: .
+    working_dir: /app
+    networks:
+      - pg-net
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+      - db
+networks:
+  pg-net:
+volumes:
+  pg-data:
+

@@ -20,6 +20,14 @@ module.exports = {
                 options: {
                     presets: ["@babel/preset-env", "@babel/preset-react"]
                 }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: ["style-loader", "css-loader", "sass-loader"]
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader", "sass-loader"]
             }
         ]
     },
@@ -32,7 +40,8 @@ module.exports = {
     // },
     devServer: {
         hot: true,
-        port: 3000
+        port: 3000,
+        historyApiFallback: true
     },
 
     plugins: [
