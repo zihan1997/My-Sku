@@ -28,6 +28,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
+        file: Dockerfile.backend
+        push: true
         platforms: linux/amd64,linux/arm64
         tags: bluebuug/my-sku-app:backend
         secrets: |
