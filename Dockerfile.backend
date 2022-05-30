@@ -10,10 +10,10 @@ RUN npm install
 COPY ["./server/", "./"]
 
 RUN --mount=type=secret,id=DB_HOST \
-    cat /run/secrets/DB_HOST \
+    cat /run/secrets/DB_HOST
 
 RUN --mount=type=secret,id=DB_USER \
-    cat /run/secrets/DB_USER \
+    cat /run/secrets/DB_USER
 
 RUN --mount=type=secret,id=DB_PASSWORD \
     cat /run/secrets/DB_PASSWORD
