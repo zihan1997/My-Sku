@@ -2,9 +2,9 @@ name: docker compose up
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    paths:
+      - "Dockerfile.frontend"
+      - "Dockerfile.backend"
 
 
 jobs:
