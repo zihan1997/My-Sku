@@ -9,10 +9,11 @@ services:
       context: ./server
       dockerfile: Dockerfile.backend
     environment:
-      DB_HOST: ${{secrets.DB_HOST}}
-      DB_USER: ${{secrets.DB_USER}}
-      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-      DB_NAME: 'my-sku-app'
+#      docker compose up -d -e DB_HOST=${{secrets.DB_HOST}} -e DB_USER=${{secrets.DB_USER}} -e DB_PASSWORD=${{secrets.DB_PASSWORD}}
+#      DB_HOST: ${{secrets.DB_HOST}}
+#      DB_USER: ${{secrets.DB_USER}}
+#      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+#      DB_NAME: 'my-sku-app'
       KOA_PORT: 3001
     networks:
       - pg-net
