@@ -21,16 +21,30 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build Frontend
-      run: docker build
-        -f Dockerfile.frontend
-        -t bluebuug/my-sku-app:frontend .
-    - name: Push Frontend
-      run: docker push bluebuug/my-sku-app:frontend
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-    - name: Build Backend
-      run: docker build
-        -f Dockerfile.backend
-        -t bluebuug/my-sku-app:backend .
-    - name: Push Backend
-      run: docker push bluebuug/my-sku-app:backend
+    - name: Build and push backend
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        tags: bluebuug/my-sku-app:backend
+        secrets: |
+          "DB_HOST=${{ secrets.DB_HOST }}"
+          "DB_USER=${{ secrets.DB_USER }}"
+          "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+#          "github_token=${{ secrets.GITHUB_TOKEN }}"
+#    - name: Build Frontend
+#      run: docker build
+#        -f Dockerfile.frontend
+#        -t bluebuug/my-sku-app:frontend .
+#    - name: Push Frontend
+#      run: docker push bluebuug/my-sku-app:frontend
+#
+#    - name: Build Backend
+#      run: docker build
+#        -f Dockerfile.backend
+#        -t bluebuug/my-sku-app:backend .
+#    - name: Push Backend
+#      run: docker push bluebuug/my-sku-app:backend
