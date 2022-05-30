@@ -22,15 +22,15 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build Frontend
-      run: docker build 
-        -f Dockerfile.frontend 
+      run: docker build
+        -f Dockerfile.frontend
         -t bluebuug/my-sku-app:frontend .
     - name: Push Frontend
       run: docker push bluebuug/my-sku-app:frontend
 
     - name: Build Backend
       run: docker build
-        -f Dockerfile.backend 
+        -f Dockerfile.backend
         -t bluebuug/my-sku-app:backend .
     - name: Push Backend
       run: docker push bluebuug/my-sku-app:backend
