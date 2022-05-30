@@ -30,10 +30,6 @@ jobs:
 
     - name: Build Backend
       run: docker build
-        -e DB_HOST=${{secrets.DB_HOST}}
-        -e DB_USER=${{secrets.DB_USER}}
-        -e DB_PASSWORD=${{secrets.DB_PASSWORD}}
-        -e DB_NAME='my-sku-app'
         -f Dockerfile.backend 
         -t bluebuug/my-sku-app:backend .
     - name: Push Backend
