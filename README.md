@@ -1,7 +1,7 @@
 
-## Current Implementation
+## Current Todo
 
-#### docker instruction
+#### Instruction
 
 ```bash
 docker build -f Dockerfile.backend -t my-sku-backend .
