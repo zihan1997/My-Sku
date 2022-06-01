@@ -41,13 +41,14 @@ export default class MySider extends React.Component{
                                         <span> Home</span>
                                     </Link>)
                         },
-                        {
-                            key: 'item 2',
-                            icon: <UserOutlined />,
-                            label: (<Link to='/users'>
-                                        <span> User</span>
-                                    </Link>),
-                        },
+                        // TODO: user page implementation
+                        // {
+                        //     key: 'item 2',
+                        //     icon: <UserOutlined />,
+                        //     label: (<Link to='/users'>
+                        //                 <span> User</span>
+                        //             </Link>),
+                        // },
                         {
                             key: 'item 3',
                             icon: <FileOutlined />,

@@ -46,18 +46,18 @@ services:
     volumes:
       - .:/app/server
 
-  frontend:
-    image: bluebuug/my-sku-app:frontend
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    working_dir: /app
-    networks:
-      - pg-net
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+#  frontend:
+#    image: bluebuug/my-sku-app:frontend
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.frontend
+#    working_dir: /app
+#    networks:
+#      - pg-net
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - backend
 networks:
   pg-net:
 volumes:

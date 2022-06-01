@@ -35,7 +35,8 @@ export default class Home extends React.Component {
                         marginLeft: 200,
                     }}
                 >
-                    <MyTopBar />
+                    {/* TODO: top user setting*/}
+                    {/*<MyTopBar />*/}
                     <MyContent/>
                 </Layout>
             </Layout>

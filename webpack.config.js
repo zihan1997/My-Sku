@@ -39,7 +39,7 @@ module.exports = {
     //     'react': 'React'
     // },
     devServer: {
-        // hot: true,
+        hot: true,
         port: 3000,
         allowedHosts:[
             '.elasticbeanstalk.com'
