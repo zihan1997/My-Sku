@@ -2,7 +2,8 @@ import {Link} from "react-router-dom";
 import React from "react";
 import
 {
-    FileOutlined,
+    EditTwoTone,
+    FileOutlined, FundTwoTone,
     HomeOutlined,
     SearchOutlined,
     UserOutlined
@@ -52,14 +53,21 @@ export default class MySider extends React.Component{
                         {
                             key: 'item 3',
                             icon: <FileOutlined />,
-                            label: (<Link to='/products'>
-                                        <span> Products</span>
-                                    </Link>),
+                            label: <span> Products</span>,
                             children: [
                                 {
-
                                     key: 'item 4',
-                                    icon: <SearchOutlined />,
+                                    icon: <FundTwoTone />,
+                                    label: (
+                                        <Link to='/products'>
+                                            <span>Product Table</span>
+                                        </Link>
+                                    )
+                                },
+                                {
+
+                                    key: 'item 5',
+                                    icon: <EditTwoTone />,
                                     label: (
                                         <Link to='/products/actions'>
                                             <span> Manage </span>
@@ -67,24 +75,6 @@ export default class MySider extends React.Component{
 
                                     )
                                 },
-                                // {
-                                //     key: 'item 5',
-                                //     icon: <PlusSquareOutlined />,
-                                //     label: (
-                                //         <Link to='/products'>
-                                //             <span> <AddProductForm/></span>
-                                //         </Link>)
-                                // },
-                                // {
-                                //     key: 'item 6',
-                                //     icon: <SearchOutlined />,
-                                //     label: (
-                                //         <Link to='/products'>
-                                //             <span> <SearchProductForm/> </span>
-                                //         </Link>
-                                //
-                                //     )
-                                // }
                             ]
                         },
                     ]}

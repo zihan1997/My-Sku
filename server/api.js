@@ -10,6 +10,13 @@ module.exports = (router) => {
     *
     * */
 
+    /* show a home page for api route  */
+    router.get('/', async (ctx, res)=> {
+        ctx.status=200;
+        ctx.type='text/html'
+        ctx.body = '<h1>Hello World</h1>'
+    })
+
     /* get the full list of products */
     router.get('/products', async (ctx)=>{
         const query = Product.query();
