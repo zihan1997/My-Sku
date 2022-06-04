@@ -16,8 +16,16 @@ class Product extends Model{
     // JSON schema
     // static get jsonSchema(){
     //     return {
+    //         $schema: "http://json-schema.org/draft-04/schema#",
     //         type: 'object',
-    //         require: ['']
+    //         required: ["code", "name", "price", "quantity", "date"],
+    //         properties: {
+    //             code: {type: 'string', minLength: 1},
+    //             name: {type: 'string', minLength: 1},
+    //             price: {type: 'number'},
+    //             quantity: {type: 'integer'},
+    //             date: {type: 'string'}
+    //         }
     //     }
     // }
 
@@ -28,24 +36,3 @@ class Product extends Model{
 }
 
 module.exports = Product;
-
-async function main(){
-    const product = await Product.query().findById(1);
-    console.log(product);
-
-    // const test = await Product.query().insert({
-    //     code: '1',
-    //     name: '1',
-    //     price: 10,
-    //     quantity: 3,
-    //     date: "2022-05-11",
-    // })
-    // console.log('test: ' + test)
-    console.log(await Product.query())
-}
-// main()
-//     .then(()=> knex.destroy())
-//     .catch(err=>{
-//         console.log(err);
-//         return knex.destroy();
-//     })

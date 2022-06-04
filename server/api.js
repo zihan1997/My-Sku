@@ -19,22 +19,38 @@ module.exports = (router) => {
 
     /* get the full list of products */
     router.get('/products', async (ctx)=>{
-        const query = Product.query();
-        console.log("get products list")
-        if(query){
-            ctx.status = 200;
-            ctx.type = 'json';
-            ctx.body = await query;
-        }else{
-            ctx.status = 400;
+        try{
+            const query = Product.query();
+            console.log("get products list")
+            if (query) {
+                ctx.status = 200;
+                ctx.type = 'json';
+                ctx.body = await query;
+            } else {
+                ctx.status = 400;
+            }
+        }catch (e){
+            const msg = 'Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || {msg}
+            }
         }
     });
 
     /* get exact product by id */
     router.get('/products/:key', async (ctx)=>{
-        const query = await Product.query().findById(ctx.params.key);
-        console.log('get product by id ', ctx.params.key)
-        ctx.body = query;
+        try {
+            const query = await Product.query().findById(ctx.params.key);
+            console.log('get product by id ', ctx.params.key)
+            ctx.body = query;
+        }catch (e){
+            const msg = 'Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || {msg}
+            }
+        }
     })
 
     /*
@@ -73,8 +89,18 @@ module.exports = (router) => {
         // })
         // ctx.body = insertedGraph;
 
-        console.log("create new product", ctx.request.body);
-        ctx.body = await Product.query().insert(ctx.request.body)
+        try {
+            console.log("create new product", ctx.request.body)
+            ctx.body = await Product.query().insert(ctx.request.body)
+        }catch (e){
+            const msg = 'user: Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || msg,
+                data: ctx.request.body
+            }
+        }
+
     })
 
     /* update corresponding product
