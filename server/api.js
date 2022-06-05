@@ -26,8 +26,6 @@ module.exports = (router) => {
                 ctx.status = 200;
                 ctx.type = 'json';
                 ctx.body = await query;
-            } else {
-                ctx.status = 400;
             }
         }catch (e){
             const msg = 'Internal error';

@@ -1,0 +1,18 @@
+name: jest test to get bandage
+
+on:
+  push:
+    branches:
+      - master
+      - jest-test
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: test
+        uses: ziishaned/jest-reporter-action@v0.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-command: "yarn jest --coverage"
