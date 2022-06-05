@@ -97,10 +97,8 @@ module.exports = (router) => {
             ctx.status = e.statusCode || 500;
             ctx.body = {
                 error: e.data || msg,
-                data: ctx.request.body
             }
         }
-
     })
 
     /* update corresponding product
