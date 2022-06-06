@@ -14,14 +14,15 @@ export default function ProductController(){
             className="product-action-header"
             onBack={() => navigate("../products")}
             title="Management"
-            subTitle="This is a subtitle"
+            // subTitle="This is a subtitle"
 
             extra={[
-                <Button key="3">Operation</Button>,
-                <Button key="2">Operation</Button>,
-                <Button key="1" type="primary">
-                    Primary
-                </Button>,
+                // TODO product management page side buttons
+                // <Button key="3">Operation</Button>,
+                // <Button key="2">Operation</Button>,
+                // <Button key="1" type="primary">
+                //     Primary
+                // </Button>,
             ]}
             footer={
                 <Tabs defaultActiveKey="1" >

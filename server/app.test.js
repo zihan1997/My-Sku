@@ -109,7 +109,7 @@ describe('/api/products route tests', ()=> {
                 QueryBuilder.forClass(Product).resolve(products[1])
             );
         const response = await request(server.callback()).get('/api/products/name/box');
-        console.log(response)
+        // console.log(response)
         expect(response.body).toEqual(products[1])
     });
 

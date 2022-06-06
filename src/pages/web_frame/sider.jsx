@@ -5,12 +5,11 @@ import
     EditTwoTone,
     FileOutlined, FundTwoTone,
     HomeOutlined,
-    SearchOutlined,
-    UserOutlined
 } from "@ant-design/icons";
 import {Layout, Menu} from "antd";
 const { Sider } = Layout;
 import './index.scss'
+import MyFooter from "./footer";
 
 export default class MySider extends React.Component{
 
@@ -18,6 +17,7 @@ export default class MySider extends React.Component{
         return (
             <Sider
                 // trigger={null} collapsible
+                className="Sider"
                 style={{
                     overflow: 'auto',
                     height: '100vh',
@@ -51,36 +51,36 @@ export default class MySider extends React.Component{
                         //             </Link>),
                         // },
                         {
-                            key: 'item 3',
-                            icon: <FileOutlined />,
-                            label: <span> Products</span>,
-                            children: [
-                                {
-                                    key: 'item 4',
-                                    icon: <FundTwoTone />,
-                                    label: (
-                                        <Link to='/products'>
-                                            <span>Product Table</span>
-                                        </Link>
-                                    )
-                                },
-                                {
+                            key: 'col Product',
+                            label: "Product",
+                            disabled: true,
+                        },
+                        {
+                            key: 'item 4',
+                            icon: <FundTwoTone />,
+                            label: (
+                                <Link to='/products'>
+                                    <span>Table</span>
+                                </Link>
+                            )
+                        },
+                        {
 
-                                    key: 'item 5',
-                                    icon: <EditTwoTone />,
-                                    label: (
-                                        <Link to='/products/actions'>
-                                            <span> Manage </span>
-                                        </Link>
+                            key: 'item 5',
+                            icon: <EditTwoTone />,
+                            label: (
+                                <Link to='/products/actions'>
+                                    <span> Manage </span>
+                                </Link>
 
-                                    )
-                                },
-                            ]
+                            )
                         },
                     ]}
                 >
 
                 </Menu>
+
+                {/*<MyFooter/>*/}
             </Sider>
         )
     }

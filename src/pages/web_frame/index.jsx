@@ -3,7 +3,7 @@ import MyTopBar from "./topbar";
 import 'antd/dist/antd.css';
 import './index.scss';
 import MySider from "./sider";
-import { Layout} from 'antd';
+import { Layout } from 'antd';
 import MyContent from "./content";
 
 
@@ -35,9 +35,9 @@ export default class Home extends React.Component {
                         marginLeft: 200,
                     }}
                 >
-                    {/* TODO: top user setting*/}
-                    {/*<MyTopBar />*/}
+                    <MyTopBar />
                     <MyContent/>
+
                 </Layout>
             </Layout>
         );
