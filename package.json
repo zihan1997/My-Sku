@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server -d eval --progress --hot --color --config ./webpack.config.js ",
     "dev1": "webpack-dev-server -d eval --progress --color --config ./webpack.config.js ",
-    "test": "jest"
+    "test": "jest",
+    "make-badges": "istanbul-badges-readme"
   },
   "dependencies": {
     "@ant-design/icons": "4.7.0",
@@ -47,6 +48,7 @@
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "6.7.1",
     "html-webpack-plugin": "5.5.0",
+    "istanbul-badges-readme": "^1.8.1",
     "jest": "28.1.0",
     "papaparse": "5.3.2",
     "sass": "^1.51.0",

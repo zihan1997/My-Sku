@@ -21,7 +21,7 @@ describe('/api test',  ()=>{
 
 // test Products api route
 describe('/api/products route tests', ()=> {
-    let products = [
+    const products = [
         {
             key: '1',
             code: '123',
@@ -40,15 +40,6 @@ describe('/api/products route tests', ()=> {
         }
     ];
 
-    beforeEach(() => {
-
-    });
-    afterEach(()=> {
-        // jest.clearAllMocks();
-    });
-
-
-
     test("GET /api/products should pass", async ()=> {
         const queryMock = jest
             .spyOn(Product, 'query')
@@ -61,6 +52,7 @@ describe('/api/products route tests', ()=> {
         expect(response).toBeDefined();
         expect(response.body).toEqual(products);
 
+        queryMock.mockRestore()
     });
 
     test("POST /api/products should pass", async ()=> {
@@ -76,9 +68,11 @@ describe('/api/products route tests', ()=> {
         // console.log(response);
         expect(queryMock).toBeCalled();
         // expect(response.body).toEqual(products[0])
+
+        queryMock.mockRestore()
     });
 
-    test('GET /api/products/Some_product', async ()=> {
+    test('GET /api/products/:key', async ()=> {
         const queryMock = jest
             .spyOn(Product, 'query')
             .mockImplementation(()=>
@@ -89,6 +83,15 @@ describe('/api/products route tests', ()=> {
         // console.log(response)
         expect(queryMock).toBeCalled();
         expect(response.body).toEqual(products[0]);
+
+        queryMock.mockRestore()
+    });
+
+    test('GET /api/products/:key should fail', async ()=> {
+
+        const response = await request(server.callback()).get('/api/products/1');
+        // console.log(response)
+        expect(response.text).toContain('Internal error')
     })
 
     // GET by product code
@@ -100,6 +103,8 @@ describe('/api/products route tests', ()=> {
             );
         const response = await request(server.callback()).get('/api/products/code/1');
         expect(response.body).toEqual(products[0]);
+
+        queryMock.mockRestore()
     });
 
     test("GET /api/products/name/name_1", async ()=>{
@@ -111,6 +116,8 @@ describe('/api/products route tests', ()=> {
         const response = await request(server.callback()).get('/api/products/name/box');
         // console.log(response)
         expect(response.body).toEqual(products[1])
+
+        queryMock.mockRestore()
     });
 
     test("PATCH /products/:key", async ()=>{
@@ -121,6 +128,8 @@ describe('/api/products route tests', ()=> {
             );
         const response = await request(server.callback()).patch('/api/products/1');
         expect(queryMock).toBeCalled()
+
+        queryMock.mockRestore()
     });
 
     test("DEL /products/:key", async () => {
@@ -131,6 +140,8 @@ describe('/api/products route tests', ()=> {
             );
         const response = await request(server.callback()).del('/api/products/1');
         expect(queryMock).toBeCalled()
+
+        queryMock.mockRestore()
     })
 })
 
