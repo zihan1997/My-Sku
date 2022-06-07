@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Divider, Form, Input, message, Space} from 'antd';
+import {Button, Divider, Form, Input, message, Space, DatePicker} from 'antd';
 import {ScanOutlined} from "@ant-design/icons";
 import {createCode, createDate, createName, createPrice, createQuantity} from "../productGenerator";
 import {useNavigate} from "react-router-dom";
@@ -16,7 +16,7 @@ export default function AddProductForm() {
     const [code, setCode] = useState(createCode());
     const [price, setPrice] = useState(createPrice());
     const [quantity, setQuantity] = useState(1);
-    const [date, setDate] = useState(new Date().toDateString());
+    const [date, setDate] = useState(new Date().toISOString());
     const [isScan, setIsScan] = useState(false);
 
     const {data: products} = useGetProductsQuery();
@@ -40,9 +40,9 @@ export default function AddProductForm() {
     const generatePrice = ()=> {
         setPrice(createPrice());
     }
-    const generateDate = () => {
-        setDate(createDate());
-    }
+    // const generateDate = () => {
+    //     setDate(createDate());
+    // }
 
     const onFetchProduct = () => {
         message
@@ -241,15 +241,10 @@ export default function AddProductForm() {
                         // rules={[{ required: true, message: 'Please provide a name!' }]}
                     >
                         <Space>
-                            <Input
-                                value={date}
-                                onChange={(e) => (setDate(e.target.value))}
+                            <DatePicker
+                                format="YYYY-MM-DD"
+                                onChange = {(date, dateString) => setDate(dateString)}
                             />
-                            <button
-                                type='primary'
-                                onClick={generateDate}
-                            >Generate
-                            </button>
                         </Space>
                     </Form.Item>
 

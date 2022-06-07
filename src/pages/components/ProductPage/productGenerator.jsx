@@ -41,5 +41,5 @@ export const createQuantity = () => {
     })
 }
 export const createDate = () => {
-    return faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z').toDateString();
+    return faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z').toISOString();
 }

@@ -143,21 +143,22 @@ export default function EditProduct_Modal_Form(props){
                         </Space>
                     </Form.Item>
 
-                    <Form.Item
-                        label="Add Date"
-                    >
-                        <Space>
-                            <Input
-                                value={date}
-                                onChange={(e)=> (setDate(e.target.value))}
-                            />
-                            <button
-                                type='primary'
-                                onClick={generateDate}
-                            >Generate
-                            </button>
-                        </Space>
-                    </Form.Item>
+                    {/* todo current not able to provide date changing */}
+                    {/*<Form.Item*/}
+                    {/*    label="Add Date"*/}
+                    {/*>*/}
+                    {/*    <Space>*/}
+                    {/*        <Input*/}
+                    {/*            value={date}*/}
+                    {/*            onChange={(e)=> (setDate(e.target.value))}*/}
+                    {/*        />*/}
+                    {/*        <button*/}
+                    {/*            type='primary'*/}
+                    {/*            onClick={generateDate}*/}
+                    {/*        >Generate*/}
+                    {/*        </button>*/}
+                    {/*    </Space>*/}
+                    {/*</Form.Item>*/}
 
                     <Form.Item wrapperCol={{offset: 8, span: 10}}>
                         <Button type="primary"

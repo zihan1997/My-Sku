@@ -2,9 +2,8 @@ import {Link} from "react-router-dom";
 import React from "react";
 import
 {
-    EditTwoTone,
-    FileOutlined, FundTwoTone,
-    HomeOutlined,
+    EditOutlined,
+    HomeOutlined, TabletOutlined,
 } from "@ant-design/icons";
 import {Layout, Menu} from "antd";
 const { Sider } = Layout;
@@ -57,7 +56,7 @@ export default class MySider extends React.Component{
                         },
                         {
                             key: 'item 4',
-                            icon: <FundTwoTone />,
+                            icon: <TabletOutlined />,
                             label: (
                                 <Link to='/products'>
                                     <span>Table</span>
@@ -67,9 +66,9 @@ export default class MySider extends React.Component{
                         {
 
                             key: 'item 5',
-                            icon: <EditTwoTone />,
+                            icon: <EditOutlined />,
                             label: (
-                                <Link to='/products/actions'>
+                                <Link to='/products/manage'>
                                     <span> Manage </span>
                                 </Link>
 
