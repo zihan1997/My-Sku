@@ -17,7 +17,7 @@ export default function ProductsPage(){
                     textAlign: 'center'
                 }}
             >
-                Here are Products!
+                Products List
                 {/*<AddProductForm/>*/}
                 {/*<SearchProductForm/>*/}
             </Header>

@@ -9,17 +9,4 @@ COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install
 COPY ["./server/", "./"]
 
-RUN --mount=type=secret,id=DB_HOST \
-    cat /run/secrets/DB_HOST
-
-RUN --mount=type=secret,id=DB_USER \
-    cat /run/secrets/DB_USER
-
-RUN --mount=type=secret,id=DB_PASSWORD \
-    cat /run/secrets/DB_PASSWORD
-#ENV DB_HOST=${{ secrets.DB_HOST }}
-#ENV DB_USER=${{ secrets.DB_USER }}
-#ENV DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-ENV DB_NAME=my-sku-app
-
 CMD ["node", "app.js"]

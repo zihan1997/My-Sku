@@ -13,17 +13,18 @@ export default function MyTopBar(props){
         }}
         >
             <Space wrap>
-                <Dropdown
-                    overlay={menu}
-                >
-                    <Button>
-                        <Space>
-                            <UserOutlined />
-                            User xxx
-                            <DownOutlined />
-                        </Space>
-                    </Button>
-                </Dropdown>
+                {/* TODO: top user setting*/}
+                {/*<Dropdown*/}
+                {/*    overlay={menu}*/}
+                {/*>*/}
+                {/*    <Button>*/}
+                {/*        <Space>*/}
+                {/*            <UserOutlined />*/}
+                {/*            User xxx*/}
+                {/*            <DownOutlined />*/}
+                {/*        </Space>*/}
+                {/*    </Button>*/}
+                {/*</Dropdown>*/}
             </Space>
         </Header>
     )

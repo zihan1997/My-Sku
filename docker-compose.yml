@@ -1,32 +1,65 @@
 version: '3.9'
 services:
+  db:
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: my-sku-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgres/data
+    networks:
+      - pg-net
+
+  pgAdmin:
+#    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    networks:
+      - pg-net
+    volumes:
+      - pg-data:/var/lib/postgres/data
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
 
   backend:
     image: bluebuug/my-sku-app:backend
     ports:
       - "3001:3001"
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile.backend
     environment:
+      CONN_STR: "postgresql://postgres:postgres@db:5432/my-sku-db"
       KOA_PORT: 3001
     networks:
       - pg-net
     volumes:
       - .:/app/server
 
-  frontend:
-    image: bluebuug/my-sku-app:frontend
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    working_dir: /app
-    networks:
-      - pg-net
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+#  frontend:
+#    image: bluebuug/my-sku-app:frontend
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.frontend
+#    working_dir: /app
+#    networks:
+#      - pg-net
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - backend
 networks:
   pg-net:
+volumes:
+  pg-data:
 

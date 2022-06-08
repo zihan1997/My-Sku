@@ -2,14 +2,13 @@ import {Link} from "react-router-dom";
 import React from "react";
 import
 {
-    FileOutlined,
-    HomeOutlined,
-    SearchOutlined,
-    UserOutlined
+    EditOutlined,
+    HomeOutlined, TabletOutlined,
 } from "@ant-design/icons";
 import {Layout, Menu} from "antd";
 const { Sider } = Layout;
 import './index.scss'
+import MyFooter from "./footer";
 
 export default class MySider extends React.Component{
 
@@ -17,6 +16,7 @@ export default class MySider extends React.Component{
         return (
             <Sider
                 // trigger={null} collapsible
+                className="Sider"
                 style={{
                     overflow: 'auto',
                     height: '100vh',
@@ -41,55 +41,45 @@ export default class MySider extends React.Component{
                                         <span> Home</span>
                                     </Link>)
                         },
+                        // TODO: user page implementation
+                        // {
+                        //     key: 'item 2',
+                        //     icon: <UserOutlined />,
+                        //     label: (<Link to='/users'>
+                        //                 <span> User</span>
+                        //             </Link>),
+                        // },
                         {
-                            key: 'item 2',
-                            icon: <UserOutlined />,
-                            label: (<Link to='/users'>
-                                        <span> User</span>
-                                    </Link>),
+                            key: 'col Product',
+                            label: "Product",
+                            type: 'group',
                         },
                         {
-                            key: 'item 3',
-                            icon: <FileOutlined />,
-                            label: (<Link to='/products'>
-                                        <span> Products</span>
-                                    </Link>),
-                            children: [
-                                {
+                            key: 'item 4',
+                            icon: <TabletOutlined />,
+                            label: (
+                                <Link to='/products'>
+                                    <span>Table</span>
+                                </Link>
+                            )
+                        },
+                        {
 
-                                    key: 'item 4',
-                                    icon: <SearchOutlined />,
-                                    label: (
-                                        <Link to='/products/actions'>
-                                            <span> Manage </span>
-                                        </Link>
+                            key: 'item 5',
+                            icon: <EditOutlined />,
+                            label: (
+                                <Link to='/products/manage'>
+                                    <span> Manage </span>
+                                </Link>
 
-                                    )
-                                },
-                                // {
-                                //     key: 'item 5',
-                                //     icon: <PlusSquareOutlined />,
-                                //     label: (
-                                //         <Link to='/products'>
-                                //             <span> <AddProductForm/></span>
-                                //         </Link>)
-                                // },
-                                // {
-                                //     key: 'item 6',
-                                //     icon: <SearchOutlined />,
-                                //     label: (
-                                //         <Link to='/products'>
-                                //             <span> <SearchProductForm/> </span>
-                                //         </Link>
-                                //
-                                //     )
-                                // }
-                            ]
+                            )
                         },
                     ]}
                 >
 
                 </Menu>
+
+                {/*<MyFooter/>*/}
             </Sider>
         )
     }
