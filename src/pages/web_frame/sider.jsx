@@ -52,7 +52,7 @@ export default class MySider extends React.Component{
                         {
                             key: 'col Product',
                             label: "Product",
-                            disabled: true,
+                            type: 'group',
                         },
                         {
                             key: 'item 4',

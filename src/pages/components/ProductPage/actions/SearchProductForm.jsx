@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {Button, Divider, Input, Select, Space, message, Steps} from 'antd';
+import {Button, Divider, Input, Select, Space, message} from 'antd';
 import CodeReader from "../BarCodeReader/CodeReader";
 import {
     useGetProductsQuery,
     useSearchProductsByCodeMutation,
     useSearchProductsByNameMutation
 } from "../../../../reducers/api/apiSlice";
-import * as PropTypes from "prop-types";
 import ProductsTable from "../ProductsTable";
 import {nanoid} from "@reduxjs/toolkit";
 const { Option } = Select;
-const {Step} = Steps;
 
-Step.propTypes = {title: PropTypes.bool};
 export default function SearchProductForm(){
 
     const {data: products} = useGetProductsQuery();
@@ -28,9 +25,9 @@ export default function SearchProductForm(){
     // camera settings
     const [isCamera, setIsCamera] = useState(false);
 
-    useEffect(()=> {
-        setSearchOutputTable(products)
-    }, [products])
+    // useEffect(()=> {
+    //     setSearchOutputTable(products)
+    // }, [products])
 
     function onSelect(value) {
         // console.log(`selected ${value} ${searchedVal}`);
