@@ -10,4 +10,6 @@ COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install
 COPY . ./
 
+ENV URL=backend-env.eba-72w8ub89.us-west-1.elasticbeanstalk.com
+
 CMD ["npm", "run", "dev"]

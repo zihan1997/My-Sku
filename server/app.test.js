@@ -87,13 +87,6 @@ describe('/api/products route tests', ()=> {
         queryMock.mockRestore()
     });
 
-    test('GET /api/products/:key should fail', async ()=> {
-
-        const response = await request(server.callback()).get('/api/products/1');
-        // console.log(response)
-        expect(response.text).toContain('Internal error')
-    })
-
     // GET by product code
     test("GET /api/products/code/code_1", async () => {
         const queryMock = jest
@@ -142,6 +135,38 @@ describe('/api/products route tests', ()=> {
         expect(queryMock).toBeCalled()
 
         queryMock.mockRestore()
+    })
+
+    describe("error while routering", () => {
+
+        const errStr = 'Internal error';
+
+        test('GET /products', async ()=> {
+            const response = await request(server.callback()).get('/api/products');
+            console.log(response.text)
+            expect(response.status).toEqual(404);
+        })
+
+        test('GET /api/products/:key should fail', async ()=> {
+
+            const response = await request(server.callback()).get('/api/products/1');
+            // console.log(response)
+            expect(response.text).toContain(errStr)
+        });
+
+        test("GET /products/code/:code", async () => {
+            const response = await request(server.callback()).get('/api/products/code/1');
+            expect(response.text).toContain(errStr);
+        });
+        test("GET /products/name/:name", async ()=> {
+            const response = await request(server.callback()).get('/api/products/name/1');
+            expect(response.text).toContain(errStr);
+        })
+
+        test("DEL /products/:key", async ()=>{
+            const response = await request(server.callback()).del('/api/products/1');
+            expect(response.text).toContain(errStr)
+        })
     })
 })
 

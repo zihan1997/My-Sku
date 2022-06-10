@@ -24,7 +24,6 @@ module.exports = (router) => {
             console.log("get products list")
             if (query) {
                 ctx.status = 200;
-                ctx.type = 'json';
                 ctx.body = await query;
             }
         }catch (e){
@@ -42,6 +41,7 @@ module.exports = (router) => {
             const query = await Product.query().findById(ctx.params.key);
             console.log('get product by id ', ctx.params.key)
             ctx.body = query;
+            ctx.status = 200
         }catch (e){
             const msg = 'Internal error';
             ctx.status = e.statusCode || 500;
@@ -57,10 +57,19 @@ module.exports = (router) => {
     router.get('/products/code/:code', async ctx=>{
         let code = ctx.params.code;
         console.log("searching by code " + code);
-        const query = Product.query().where({
-            code: code
-        });
-        ctx.body = await query;
+        try{
+            const query = Product.query().where({
+                code: code
+            });
+            ctx.body = await query;
+            ctx.status = 200;
+        }catch (e){
+            const msg = 'Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || {msg}
+            }
+        }
     })
 
     /*
@@ -69,8 +78,17 @@ module.exports = (router) => {
     router.get('/products/name/:name', async ctx=>{
         let name = ctx.params.name;
         console.log("searching by name " + name);
-        const query = Product.query().orWhereRaw('name like ?', `%${name}%`);
-        ctx.body = await query;
+        try {
+            const query = Product.query().orWhereRaw('name like ?', `%${name}%`);
+            ctx.body = await query;
+            ctx.status = 200;
+        }catch (e){
+            const msg = 'Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || {msg}
+            }
+        }
     })
 
 
@@ -89,7 +107,8 @@ module.exports = (router) => {
 
         try {
             console.log("create new product", ctx.request.body)
-            ctx.body = await Product.query().insert(ctx.request.body)
+            ctx.body = await Product.query().insert(ctx.request.body);
+            ctx.status = 200;
         }catch (e){
             const msg = 'user: Internal error';
             ctx.status = e.statusCode || 500;
@@ -105,20 +124,35 @@ module.exports = (router) => {
     router.patch('/products/:key', async ctx => {
         console.log("update product ", ctx.params.key);
         const data = ctx.request.body;
-        const instance = await Product.query()
-            .findById(ctx.params.key)
-            .patch({
-                code: data.code,
-                name: data.name,
-                quantity: data.quantity,
-                price: data.price,
-                date: data.date
-            })
+        try {
+            const instance = await Product.query()
+                .findById(ctx.params.key)
+                .patch({
+                    code: data.code,
+                    name: data.name,
+                    quantity: data.quantity,
+                    price: data.price,
+                    date: data.date
+                });
+            ctx.status = 200;
+        }catch (e) {
+
+        }
+
 
     })
 
     router.delete('/products/:key', async ctx => {
-        const del = await Product.query().deleteById(ctx.params.key)
+        try {
+            const del = await Product.query().deleteById(ctx.params.key)
+        }catch (e){
+            const msg = 'user: Internal error';
+            ctx.status = e.statusCode || 500;
+            ctx.body = {
+                error: e.data || msg,
+            }
+        }
+
     })
 
 }
