@@ -17,11 +17,9 @@ registerApi(router)
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// DB Manage
-const Knex = require('knex');
-const knexConfig = require('./config');
-const {Model} = require('objection');
-const knex = Knex(knexConfig)
-Model.knex(knex);
+// mongoose
+const mongoose = require('mongoose');
+const mongo_uri = 'mongodb://myAppUser:myAppUserPwd@localhost:27017/my-app';
+mongoose.connect(mongo_uri)
 
 module.exports = app;
