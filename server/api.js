@@ -1,27 +1,6 @@
-'use strict'
+// 'use strict'
 const Product = require('./models/Product');
 
-//
-// module.exports = (router) => {
-//     router.get('/', async ctx => {
-//         try {
-//
-//             ctx.body = await Product.find();
-//             ctx.status = 200;
-//         }catch (e){
-//             ctx.body = {error: e || 'Internal Error'};
-//         }
-//     });
-//     router.get('/1', async ctx => {
-//         try {
-//
-//             ctx.body = await Product.find();
-//             ctx.status = 200;
-//         }catch (e){
-//             ctx.body = {error: e || 'Internal Error'};
-//         }
-//     })
-// }
 
 module.exports = (router) => {
     /*
@@ -39,26 +18,16 @@ module.exports = (router) => {
         ctx.body = '<h1>Welcome to API page</h1>'
     })
 
-    /* get the full list of products */
+    /**
+     * query: [id, code, name]
+     * get a list of products */
     router.get('/products', async (ctx)=>{
-        try{
-            const query = Product.find();
-            if(debug) console.log("get products list")
-            if (query) {
-                ctx.status = 200;
-                ctx.body = await query;
-            }
-        }catch (e){
-            const msg = 'Internal error';
-            ctx.status = e.statusCode || 500;
-            ctx.body = {
-                error: e.data || {msg}
-            }
-        }
+        ctx.body = await Product.find();
+
     });
 
     /* get exact product by id */
-    router.get('/products/:id', async (ctx)=>{
+    router.get('/products/id/:id', async (ctx)=>{
         try {
             const id = ctx.params.id;
             const query = await Product.findById(id);
@@ -133,8 +102,8 @@ module.exports = (router) => {
     /* update corresponding product
     *  assume what've been update here contains complete JSON data
     * */
-    router.patch('/products/:key', async ctx => {
-        if(debug) console.log("update product ", ctx.params.key);
+    router.patch('/products/:id', async ctx => {
+        if(debug) console.log("update product ", ctx.params.id);
         const data = ctx.request.body;
         console.log(data);
         try {

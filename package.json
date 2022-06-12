@@ -25,18 +25,21 @@
     "koa-router": "10.1.1",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
+    "koa2-swagger-ui": "^5.5.1",
     "mongoose": "6.3.6",
     "objection": "^3.0.1",
     "pg": "^8.7.3",
     "prop-types": "^15.8.1",
     "quagga": "^0.12.1",
+    "query-string": "^7.1.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-highlight-words": "^0.18.0",
     "react-redux": "^8.0.1",
     "react-router": "6.3.0",
     "react-router-dom": "6.3.0",
-    "redux": "4.2.0"
+    "redux": "4.2.0",
+    "swagger-jsdoc": "^6.2.1"
   },
   "devDependencies": {
     "@babel/cli": "7.17.6",
