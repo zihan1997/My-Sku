@@ -51,6 +51,10 @@ describe('/api/products route tests', ()=> {
         }
     ];
 
+    afterEach(() => {
+        jest.restoreAllMocks();
+    })
+
     test("GET /api/products should pass", async ()=> {
 
         const queryMock = Product.find.mockReturnValue(products[0]);
@@ -66,64 +70,55 @@ describe('/api/products route tests', ()=> {
         expect(Product.create).toBeCalled();
     });
 
-    test.only('GET /api/products/id/:id', async ()=> {
-        const queryMock = Product.findById.mockResolvedValue(Product[0]);
+    test('GET /api/products/id/:id', async ()=> {
+        const queryMock = Product.findById.mockImplementation(id => products[0]);
 
         const response = await request(server).get('/api/products/id/2');
-        console.log(response)
+        // console.log(response.body)
+        expect(Product.findById).toBeCalled();
+        expect(response.body).toEqual(products[0]);
+    });
+
+    // GET by product code
+    test("GET /api/products/code/:code", async () => {
+
+        Product.find.mockResolvedValue(products[1]);
+
+        const response = await request(server).get('/api/products/code/2');
         expect(response.body).toEqual(products[1]);
     });
 
-//     // GET by product code
-//     test("GET /api/products/code/code_1", async () => {
-//         const queryMock = jest
-//             .spyOn(Product, 'query')
-//             .mockImplementation(()=>
-//                 QueryBuilder.forClass(Product).resolve(products[0])
-//             );
-//         const response = await request(server.callback()).get('/api/products/code/1');
-//         expect(response.body).toEqual(products[0]);
-//
-//         queryMock.mockRestore()
-//     });
-//
-//     test("GET /api/products/name/name_1", async ()=>{
-//         const queryMock = jest
-//             .spyOn(Product, 'query')
-//             .mockImplementation(()=>
-//                 QueryBuilder.forClass(Product).resolve(products[1])
-//             );
-//         const response = await request(server.callback()).get('/api/products/name/box');
-//         // console.log(response)
-//         expect(response.body).toEqual(products[1])
-//
-//         queryMock.mockRestore()
-//     });
-//
-//     test("PATCH /products/:key", async ()=>{
-//         const queryMock = jest
-//             .spyOn(Product, 'query')
-//             .mockImplementation((test)=>
-//                 QueryBuilder.forClass(Product).resolve(test + " " + products[1])
-//             );
-//         const response = await request(server.callback()).patch('/api/products/1');
-//         expect(queryMock).toBeCalled()
-//
-//         queryMock.mockRestore()
-//     });
-//
-//     test("DEL /products/:key", async () => {
-//         const queryMock = jest
-//             .spyOn(Product, 'query')
-//             .mockImplementation((test)=>
-//                 QueryBuilder.forClass(Product).resolve(test + " " + products[1])
-//             );
-//         const response = await request(server.callback()).del('/api/products/1');
-//         expect(queryMock).toBeCalled()
-//
-//         queryMock.mockRestore()
-//     })
-//
+    test("GET /api/products/name/:name", async ()=>{
+
+        Product.findByName.mockImplementation(name => products[0])
+
+        const response = await request(server).get('/api/products/name/test');
+        // console.log(response)
+        expect(response.body).toEqual(products[0])
+
+    });
+
+    test("PATCH /products/code/2", async ()=>{
+
+        const response = await request(server).patch('/api/products/code/2', products[1]);
+        // console.log(response)
+        expect(Product.findOneAndUpdate).toBeCalled()
+    });
+
+    test("DEL /products/id/:id", async () => {
+
+        const response = await request(server).del('/api/products/id/1');
+        expect(Product.deleteOne).toBeCalled()
+
+    })
+
+    test("DEL /products/code/:code", async () => {
+
+        const response = await request(server).del('/api/products/code/123');
+        expect(Product.deleteOne).toBeCalled()
+
+    })
+
 //     describe("error while routering", () => {
 //
 //         const errStr = 'Internal error';
