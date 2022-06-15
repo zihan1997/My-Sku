@@ -18,15 +18,16 @@ module.exports = (router) => {
     router.post('/register', async ctx => {
 
         const user = ctx.request.body;
-        // console.log(user);
+        console.log(user);
 
         // check if user exists
-        const query = await Auth.find({username: user.username});
+        const query = await Auth.find({username: user.username}).lean();
+        console.log(query)
         if(query.length !== 0) return ctx.status = 226;
 
         // create new user
+        await Auth.create(user).then(err => ctx.status = 500);
         const token = generateToken(user);
-        await Auth.create(user);
 
         ctx.body = {
             username: user.username,

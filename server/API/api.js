@@ -81,7 +81,7 @@ module.exports = (router) => {
     /*
     * fuzzy searching by name
     *  */
-    router.get('/products/name/:name', async ctx=>{
+    router.get('/products/name/:name', tokenVerify, async ctx=>{
         let name = ctx.params.name;
         if(debug) console.log("searching by name " + name);
         try {
@@ -104,7 +104,7 @@ module.exports = (router) => {
     /* insert a new product
     *  assume redux has checked for type corrections
     * */
-    router.post('/products', async ctx=>{
+    router.post('/products', tokenVerify, async ctx=>{
 
         try {
             if(debug) console.log("create new product", ctx.request.body)
@@ -128,7 +128,7 @@ module.exports = (router) => {
     /* update corresponding product
     *  assume what've been update here contains complete JSON data
     * */
-    router.patch('/products/code/:code', async ctx => {
+    router.patch('/products/code/:code', tokenVerify, async ctx => {
         if(debug) console.log("update product ");
         const data = ctx.request.body;
         console.log(data);
@@ -152,7 +152,7 @@ module.exports = (router) => {
      *                      /id/:id
      *                      /code/:code
      */
-    router.delete('/products/id/:id', async ctx => {
+    router.delete('/products/id/:id', tokenVerify, async ctx => {
         try {
             await Product.deleteOne({_id: ctx.params.id})
             ctx.status = 200;
@@ -166,7 +166,7 @@ module.exports = (router) => {
 
     })
 
-    router.delete('/products/code/:code', async ctx => {
+    router.delete('/products/code/:code', tokenVerify, async ctx => {
         try {
             await Product.deleteOne({code: ctx.params.code})
             ctx.status = 200;
