@@ -1,6 +1,7 @@
 // 'use strict'
-const Product = require('./models/Product');
-
+require('dotenv').config(__dirname + '/.env')
+const Product = require('../models/Product');
+const jwt = require('jsonwebtoken');
 
 module.exports = (router) => {
 
@@ -15,22 +16,35 @@ module.exports = (router) => {
      *
      */
     /* show a home page for api route  */
-    router.get('/', async (ctx, res)=> {
+    router.get('/', async ctx=> {
         ctx.status=200;
         ctx.type='text/html'
         ctx.body = '<h1>Welcome to API page</h1>'
     })
 
+
+    const tokenVerify = async (ctx, next) => {
+        const authHeader = ctx.request.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+        if(token == null) {
+            return ctx.status = 401;
+        }
+        const user = jwt.verify(token, process.env.JWT_SCRETE);
+        if(user === null) return ctx.status = 403;
+        // ctx.request.user = user;
+        await next();
+    }
+
     /**
      * query: [id, code, name]
      * get a list of products */
-    router.get('/products', async (ctx)=>{
+    router.get('/products', tokenVerify, async ctx =>{
         ctx.body = await Product.find();
         ctx.status = 200;
     });
 
     /* get exact product by id */
-    router.get('/products/id/:id', async (ctx)=>{
+    router.get('/products/id/:id',tokenVerify, async (ctx)=>{
         try {
             const id = ctx.params.id;
             const query = await Product.findById(id);
@@ -49,7 +63,7 @@ module.exports = (router) => {
     /*
     * Get the row by non-key cols
     *  */
-    router.get('/products/code/:code', async ctx=>{
+    router.get('/products/code/:code', tokenVerify, async ctx=>{
         let code = ctx.params.code;
         if(debug) console.log("searching by code " + code);
         try{
