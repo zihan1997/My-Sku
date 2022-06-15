@@ -42,26 +42,13 @@ module.exports = (router) => {
         const body = ctx.request.body
         const username = body.username;
         const password = body.password;
-        const toBeVerifiedUser = {
-            username: username,
-            password: password,
-        };
 
         // verify the user
-        const matchUser = await Auth.find(toBeVerifiedUser);
-        // console.log("finding: " + matchUser);
-        if(!matchUser) return ctx.status = 401;
+        const queryOutput = await Auth.find({username: username}).lean();
+        const matchUser = queryOutput[0];
+        if(!matchUser || matchUser.password !== password) return ctx.status = 401;
 
-        // const jwt_token =
-        // const one = await Auth.updateOne(
-        //     {username: username},
-        //     {jwt_token: jwt_token})
-
-        ctx.body = generateToken(toBeVerifiedUser);
-        // console.log("one " + one[1]);
-        // console.log("token " + jwt_token)
-
-
+        ctx.body = generateToken({username: username});
     })
 
     /**
