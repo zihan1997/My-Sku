@@ -27,21 +27,26 @@ module.exports = (router) => {
         const authHeader = ctx.request.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
         if(token == null) {
-            return ctx.status = 401;
+            return next.status = 401;
         }
         const user = jwt.verify(token, process.env.JWT_SCRETE);
-        if(user === null) return ctx.status = 403;
+        if(user === null) return next.status = 403;
         // ctx.request.user = user;
+        console.log(123)
         await next();
     }
 
     /**
      * query: [id, code, name]
      * get a list of products */
-    router.get('/products', tokenVerify, async ctx =>{
+    router.get('/products', async ctx =>{
         if(debug) console.log('get products list');
-        ctx.body = await Product.find();
-        ctx.status = 200;
+        try{
+            ctx.body = await Product.find();
+            ctx.status = 200;
+        }catch (e) {
+            console.log(e);
+        }
     });
 
     /* get exact product by id */
