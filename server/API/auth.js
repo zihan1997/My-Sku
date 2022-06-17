@@ -31,7 +31,8 @@ module.exports = (router) => {
 
         ctx.body = {
             message: `User: ${user.username} registered successfully!`,
-            token: token
+            token: token,
+            user: user.username
         };
         ctx.status = 201;
     })
@@ -52,7 +53,9 @@ module.exports = (router) => {
         const token = generateToken({username: username});
         ctx.body = {
             message: "Welcome Back",
-            token: token};
+            token: token,
+            user: username
+        };
     })
 
     /**

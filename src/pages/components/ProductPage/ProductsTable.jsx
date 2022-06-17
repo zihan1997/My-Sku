@@ -19,7 +19,10 @@ export default function ProductsTable(props){
     }
 
     return (
-        <Table dataSource={products} rowKey="_id">
+        <Table
+            dataSource={products}
+            rowKey={ (rec) =>  rec.code}
+        >
             <Column title="Code" dataIndex="code" key="code"/>
             <Column title="Name" dataIndex="name" key="name"/>
             <Column title="Price" dataIndex="price" key="price"/>

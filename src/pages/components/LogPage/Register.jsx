@@ -6,24 +6,25 @@ import {useRegisterMutation} from "../../../reducers/api/apiSlice";
 
 export default function Register() {
 
-    const [name, setName] = useState("test");
-    const [pwd, setPwd] = useState("test");
+    const [name, setName] = useState("");
+    const [pwd, setPwd] = useState("");
     const [register] = useRegisterMutation();
 
     const navigate = useNavigate();
     const handleSubmit = async () => {
-        console.log("register: " +  name + " " + pwd);
-
         try {
             const result = await register({
                 username: name,
                 password: pwd,
             })
-            console.log(result);
+            // console.log(result);
             if(result.error && result.error.originalStatus === 226){
                 message.error("User exists, try to login", 2);
             }else{
                 message.success(result.data.message, 2);
+
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('user', result.user)
                 navigate('../products')
             }
         }catch (e) {

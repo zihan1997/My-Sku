@@ -12,22 +12,20 @@ export default function LogIndex() {
 
     const navigate = useNavigate();
     const handleSubmit = async () => {
-        console.log("submit");
-        console.log(name + " " + pwd);
-
         try {
             const result = await getTokenByUser({username: name, password: pwd}).unwrap();
-            console.log(result)
+            // console.log(result)
             if(result.message !== 'Welcome Back'){
                 message.error("Error occurred", 1)
                 return;
             }
 
             localStorage.setItem('token', result.token);
+            localStorage.setItem('user', result.user)
             // redirect the URL
-            navigate("../products")
+            navigate("../products", {replace: true})
         }catch (e) {
-            console.log("error occurred: " + JSON.stringify(e))
+            // console.log("error occurred: " + JSON.stringify(e))
             message.error("Error: " + e.data + ". Code: " + e.originalStatus, 2)
         }
 

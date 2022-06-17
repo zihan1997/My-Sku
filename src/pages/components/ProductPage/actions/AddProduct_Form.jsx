@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Divider, Form, Input, message, Space, DatePicker} from 'antd';
 import {ScanOutlined} from "@ant-design/icons";
 import {createCode, createDate, createName, createPrice, createQuantity} from "../productGenerator";
@@ -19,7 +19,7 @@ export default function AddProductForm() {
     const [date, setDate] = useState(new Date().toISOString());
     const [isScan, setIsScan] = useState(false);
 
-    const {data: products} = useGetProductsQuery();
+    const {data: products, error, isError} = useGetProductsQuery();
     const [addProduct] = useAddNewProductMutation();
     const [getCode] = useSearchProductsByCodeMutation();
     const [editProduct] = useEditProductMutation();
@@ -27,6 +27,12 @@ export default function AddProductForm() {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if(isError && error.status === 401){
+            console.log(error);
+            navigate("../login");
+        }
+    }, [error])
 
     const generateCode = () => {
         setCode(createCode());

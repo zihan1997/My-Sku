@@ -23,18 +23,18 @@ module.exports = (router) => {
     })
 
 
-    const tokenVerify = async (ctx, next) => {
-        const authHeader = ctx.request.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
-        if(token == null) {
-            return next.status = 401;
-        }
-        const user = jwt.verify(token, process.env.JWT_SCRETE);
-        if(user === null) return next.status = 403;
-        // ctx.request.user = user;
-        console.log(123)
-        await next();
-    }
+    // const tokenVerify = async (ctx, next) => {
+    //     const authHeader = ctx.request.headers['authorization'];
+    //     const token = authHeader && authHeader.split(' ')[1];
+    //     if(token == null) {
+    //         return next.status = 401;
+    //     }
+    //     const user = jwt.verify(token, process.env.JWT_SCRETE);
+    //     if(user === null) return next.status = 403;
+    //     // ctx.request.user = user;
+    //     console.log(123)
+    //     await next();
+    // }
 
     /**
      * query: [id, code, name]
@@ -50,7 +50,7 @@ module.exports = (router) => {
     });
 
     /* get exact product by id */
-    router.get('/products/id/:id',tokenVerify, async (ctx)=>{
+    router.get('/products/id/:id', async (ctx)=>{
         try {
             const id = ctx.params.id;
             const query = await Product.findById(id);
@@ -69,7 +69,7 @@ module.exports = (router) => {
     /*
     * Get the row by non-key cols
     *  */
-    router.get('/products/code/:code', tokenVerify, async ctx=>{
+    router.get('/products/code/:code', async ctx=>{
         let code = ctx.params.code;
         if(debug) console.log("searching by code " + code);
         try{
@@ -87,7 +87,7 @@ module.exports = (router) => {
     /*
     * fuzzy searching by name
     *  */
-    router.get('/products/name/:name', tokenVerify, async ctx=>{
+    router.get('/products/name/:name', async ctx=>{
         let name = ctx.params.name;
         if(debug) console.log("searching by name " + name);
         try {
@@ -110,7 +110,7 @@ module.exports = (router) => {
     /* insert a new product
     *  assume redux has checked for type corrections
     * */
-    router.post('/products', tokenVerify, async ctx=>{
+    router.post('/products', async ctx=>{
 
         try {
             if(debug) console.log("create new product", ctx.request.body)
@@ -134,7 +134,7 @@ module.exports = (router) => {
     /* update corresponding product
     *  assume what've been update here contains complete JSON data
     * */
-    router.patch('/products/code/:code', tokenVerify, async ctx => {
+    router.patch('/products/code/:code', async ctx => {
         if(debug) console.log("update product ");
         const data = ctx.request.body;
         console.log(data);
@@ -158,7 +158,7 @@ module.exports = (router) => {
      *                      /id/:id
      *                      /code/:code
      */
-    router.delete('/products/id/:id', tokenVerify, async ctx => {
+    router.delete('/products/id/:id', async ctx => {
         try {
             await Product.deleteOne({_id: ctx.params.id})
             ctx.status = 200;
@@ -172,7 +172,7 @@ module.exports = (router) => {
 
     })
 
-    router.delete('/products/code/:code', tokenVerify, async ctx => {
+    router.delete('/products/code/:code', async ctx => {
         try {
             await Product.deleteOne({code: ctx.params.code})
             ctx.status = 200;

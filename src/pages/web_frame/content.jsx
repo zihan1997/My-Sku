@@ -14,10 +14,10 @@ export default function MyContent() {
     const routes = (
         <Routes>
             <Route path="/home" exact element={<WelcomePage/>} />
-            <Route path="products" element={<ProductsPage/>}/>
+            <Route path="/products" element={<ProductsPage/>}/>
             <Route path="/products/manage" element={<ProductController/>}/>
             <Route path="/users" element={<UsersPage/>} />
-            <Route path='*' element={<WelcomePage/>}/>
+            {/*<Route path='*' element={<WelcomePage/>}/>*/}
         </Routes>
     )
     return (
@@ -39,6 +39,7 @@ export default function MyContent() {
             >
 
                 {routes}
+                {/*<MyRouter/>*/}
             </div>
         </Content>
     )
