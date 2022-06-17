@@ -22,20 +22,17 @@ services:
       - mongo
 
 
-#  backend:
-#    image: bluebuug/my-sku-app:backend
-#    ports:
-#      - "3001:3001"
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.backend
-#    environment:
-#      CONN_STR: "postgresql://postgres:postgres@db:5432/my-sku-db"
-#      KOA_PORT: 3001
-#    networks:
-#      - mongo-net
-#    volumes:
-#      - .:/app/server
+  backend:
+    image: bluebuug/my-sku-app:backend
+    ports:
+      - "3001:3001"
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      MONGO_URI: mongodb://myAppUser:myAppUserPwd@mongo:27017/my-app
+    depends_on:
+      - mongo
 
 #  frontend:
 #    image: bluebuug/my-sku-app:frontend

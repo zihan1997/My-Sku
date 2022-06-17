@@ -22,6 +22,7 @@ app.use(router.allowedMethods());
 // mongoose
 const mongoose = require('mongoose');
 const mongo_uri = 'mongodb://myAppUser:myAppUserPwd@localhost:27017/my-app';
+// const mongo_uri = process.env.MONGO_URI;
 mongoose.connect(mongo_uri)
 
 module.exports = app;

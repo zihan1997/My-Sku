@@ -39,6 +39,7 @@ module.exports = (router) => {
      * query: [id, code, name]
      * get a list of products */
     router.get('/products', tokenVerify, async ctx =>{
+        if(debug) console.log('get products list');
         ctx.body = await Product.find();
         ctx.status = 200;
     });

@@ -11,11 +11,6 @@ const auth_schema = new Schema({
         type: String,
         required: true
     },
-    // jwt_refresh_token: {
-    //     type: String,
-    //     unique: true,
-    //     required: true
-    // }
 });
 
 module.exports = auth_schema;

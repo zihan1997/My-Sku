@@ -30,7 +30,7 @@ module.exports = (router) => {
         const token = generateToken(user);
 
         ctx.body = {
-            username: user.username,
+            message: `User: ${user.username} registered successfully!`,
             token: token
         };
         ctx.status = 201;
@@ -49,7 +49,10 @@ module.exports = (router) => {
         const matchUser = queryOutput[0];
         if(!matchUser || matchUser.password !== password) return ctx.status = 401;
 
-        ctx.body = generateToken({username: username});
+        const token = generateToken({username: username});
+        ctx.body = {
+            message: "Welcome Back",
+            token: token};
     })
 
     /**

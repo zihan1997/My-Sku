@@ -14,12 +14,12 @@ export default function ProductsTable(props){
             message.error("This is Total sum, CANNOT DELETE!");
             return;
         }
-        console.log("key: " + rec.key)
-        await deleteProductById(rec.key)
+        console.log("code: " + rec.code)
+        await deleteProductById(rec.code)
     }
 
     return (
-        <Table dataSource={products}>
+        <Table dataSource={products} rowKey="_id">
             <Column title="Code" dataIndex="code" key="code"/>
             <Column title="Name" dataIndex="name" key="name"/>
             <Column title="Price" dataIndex="price" key="price"/>

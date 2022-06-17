@@ -98,7 +98,6 @@ export default function SearchProductForm(){
                 <Divider/>
             </Space>
             <Space
-                // style={{marginLeft: 50}}
             >
                 <Select
                     // showSearch
