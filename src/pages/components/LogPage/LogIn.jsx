@@ -21,7 +21,8 @@ export default function LogIndex() {
             }
 
             localStorage.setItem('token', result.token);
-            localStorage.setItem('user', result.user)
+            localStorage.setItem('user', result.user);
+            localStorage.setItem('expiredIn', ""+new Date().toISOString().toString());
             // redirect the URL
             navigate("../products", {replace: true})
         }catch (e) {

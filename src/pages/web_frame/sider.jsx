@@ -79,7 +79,7 @@ export default class MySider extends React.Component{
 
                 </Menu>
 
-                {/*<MyFooter/>*/}
+                <MyFooter/>
             </Sider>
         )
     }

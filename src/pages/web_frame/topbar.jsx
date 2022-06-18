@@ -1,10 +1,10 @@
-import React, from "react";
-import {Dropdown, Layout, Menu, message, Space, Button} from 'antd';
+import React from "react";
+import {Dropdown, Layout, Menu, Space, Button} from 'antd';
 const { Header} = Layout;
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './index.scss'
 import {useNavigate} from "react-router-dom";
-export default function MyTopBar(props){
+export default function MyTopBar(){
 
     const navigate = useNavigate();
 

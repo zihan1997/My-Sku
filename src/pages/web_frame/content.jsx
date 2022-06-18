@@ -26,7 +26,7 @@ export default function MyContent() {
             style={{
                 margin: '24px 10px 0',
                 paddingLeft: 24,
-                minHeight: 280,
+                minHeight: 600,
                 overflow: 'initial'
             }}
         >
