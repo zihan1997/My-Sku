@@ -14,17 +14,16 @@ export default function LogIndex() {
     const handleSubmit = async () => {
         try {
             const result = await getTokenByUser({username: name, password: pwd}).unwrap();
-            // console.log(result)
-            if(result.message !== 'Welcome Back'){
+            console.log(result)
+            if(!(result.token && result.user)){
                 message.error("Error occurred", 1)
-                return;
+            }else {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('user', result.user);
+                localStorage.setItem('expiredIn', new Date().toISOString().toString());
+                // redirect the URL
+                navigate("../products", {replace: true})
             }
-
-            localStorage.setItem('token', result.token);
-            localStorage.setItem('user', result.user);
-            localStorage.setItem('expiredIn', ""+new Date().toISOString().toString());
-            // redirect the URL
-            navigate("../products", {replace: true})
         }catch (e) {
             // console.log("error occurred: " + JSON.stringify(e))
             message.error("Error: " + e.data + ". Code: " + e.originalStatus, 2)

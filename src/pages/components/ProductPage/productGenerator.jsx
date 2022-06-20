@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {faker} from "@faker-js/faker"
 
 
@@ -13,12 +13,9 @@ export const createCode = ()=>(
     faker.datatype.number({
         min: 1000,
         max: 9999
-    })+ "-" + faker.datatype.number({
+    }) + faker.datatype.number({
         min:100,
         max:999
-    }) + "-" + faker.datatype.number({
-        min: 1000,
-        max: 9999
     })
 );
 

@@ -70,7 +70,8 @@ export const apiSlice = createApi({
                 url: '/register',
                 method: 'POST',
                 body: user,
-            })
+            }),
+            invalidatesTags: ['auth']
         })
     })
 })

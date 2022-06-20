@@ -18,7 +18,6 @@ module.exports = (router) => {
     router.post('/register', async ctx => {
 
         const user = ctx.request.body;
-        console.log(user);
 
         // check if user exists
         const query = await Auth.find({username: user.username}).lean();

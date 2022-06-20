@@ -14,10 +14,10 @@ export default function ProductsPage(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(isError && error.status === 401){
-            navigate('../login')
+        if(error && error.status === 401){
+            navigate('../login', {replace: true})
         }
-    }, [error])
+    }, [isError])
 
     return(
         <div>

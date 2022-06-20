@@ -26,9 +26,6 @@ export default function SearchProductForm(){
     // camera settings
     const [isCamera, setIsCamera] = useState(false);
 
-    // useEffect(()=> {
-    //     setSearchOutputTable(products)
-    // }, [products])
     const navigate = useNavigate();
     useEffect(() => {
         if(isError && error.status === 401){

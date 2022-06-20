@@ -23,9 +23,9 @@ export default function Register() {
             }else{
                 message.success(result.data.message, 2);
 
-                localStorage.setItem('token', result.token);
-                localStorage.setItem('user', result.user)
-                navigate('../products')
+                localStorage.setItem('token', result.data.token);
+                localStorage.setItem('user', result.data.user)
+                navigate('../home');
             }
         }catch (e) {
             console.log(e)

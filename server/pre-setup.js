@@ -6,7 +6,6 @@ const parser = require('koa-bodyparser');
 const registerApi = require('./API/api');
 const authApi = require('./API/auth');
 const koaJwt = require('koa-jwt');
-const unless = require('koa-unless')
 
 // Server initial
 const app = new Koa();
@@ -16,8 +15,6 @@ app.use(cors());
 
 const router = new Router();
 router.prefix('/api');
-authApi(router);
-registerApi(router);
 
 app.use(function (ctx, next) {
     return next().catch((err) => {
@@ -35,12 +32,15 @@ app.use(function (ctx, next) {
 });
 
 app.use(koaJwt({
-    secret: process.env.JWT_SCRETE
+    secret: process.env.JWT_SCRETE,
+    debug: true
 }).unless({
         path: ['/api/login', '/api/register']
     })
 )
 
+authApi(router);
+registerApi(router);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
