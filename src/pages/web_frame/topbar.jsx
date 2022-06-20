@@ -44,10 +44,10 @@ export default function MyTopBar(){
             style={{
                 padding: 0,
                 textAlign: "right",
+                paddingRight: '15px'
         }}
         >
             <Space wrap>
-                {/* TODO: top user setting*/}
                 <Dropdown
                     overlay={menu}
                 >

@@ -13,8 +13,8 @@ export default function LogIndex() {
     const navigate = useNavigate();
     const handleSubmit = async () => {
         try {
-            const result = await getTokenByUser({username: name, password: pwd}).unwrap();
-            console.log(result)
+            const result = await getTokenByUser({username: name, password: pwd}, { force: true }).unwrap();
+            // console.log(result)
             if(!(result.token && result.user)){
                 message.error("Error occurred", 1)
             }else {

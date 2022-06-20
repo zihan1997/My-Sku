@@ -4,8 +4,14 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3001/api',
-        prepareHeaders: (headers) => {
-            const token = localStorage.getItem('token')
+        prepareHeaders: (headers, getState, forced) => {
+            forced = true;
+            console.log(getState)
+            if(getState.endpoint === 'getJWTToken' || getState.endpoint === 'register'){
+                return headers;
+            }
+            const token = localStorage.getItem('token');
+            console.log("get token")
             if(token){
                 headers.set('authorization', `Bearer ${token}`);
             }
