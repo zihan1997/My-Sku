@@ -1,15 +1,30 @@
 const request = require('supertest');
-const createServer = require('./pre-setup');
+const createServer = require('../pre-setup');
 
 const mongoose = require('mongoose')
 // jest.mock('mongoose');
 
-const Product = require('./models/Product');
-jest.mock('./models/Product');
+const Product = require('../models/Product');
+jest.mock('../models/Product');
 
-var server;
+jest.mock('koa-jwt', () => {
+    const fn = jest.fn((opts) => // 1st level i.e. jwt()
+    {
+        const middlewareMock = jest.fn(async (ctx, next) => { // 2nd level i.e. middleware()
+            // Unreachable
+        });
+        // @ts-ignore
+        middlewareMock.unless = jest.fn(() => jest.fn((ctx, next) => {
+            next();
+        })); // 4th level i.e. middleware().unless()
+        return middlewareMock;
+    });
+    return fn;
+});
+
+let server;
 beforeAll(()=>{
-    server = createServer.listen(3001);
+    server = createServer.listen(3002);
 })
 
 afterAll(()=>{
@@ -95,7 +110,7 @@ describe('/api/products route tests', ()=> {
         const response = await request(server).get('/api/products/name/test');
         // console.log(response)
         expect(response.body).toEqual(products[0])
-
+        expect(Product.find).toBeCalled()
     });
 
     test("PATCH /products/code/2", async ()=>{
@@ -119,36 +134,4 @@ describe('/api/products route tests', ()=> {
 
     })
 
-//     describe("error while routering", () => {
-//
-//         const errStr = 'Internal error';
-//
-//         test('GET /products', async ()=> {
-//             const response = await request(server.callback()).get('/api/products');
-//             console.log(response.text)
-//             expect(response.status).toEqual(404);
-//         })
-//
-//         test('GET /api/products/:key should fail', async ()=> {
-//
-//             const response = await request(server.callback()).get('/api/products/1');
-//             // console.log(response)
-//             expect(response.text).toContain(errStr)
-//         });
-//
-//         test("GET /products/code/:code", async () => {
-//             const response = await request(server.callback()).get('/api/products/code/1');
-//             expect(response.text).toContain(errStr);
-//         });
-//         test("GET /products/name/:name", async ()=> {
-//             const response = await request(server.callback()).get('/api/products/name/1');
-//             expect(response.text).toContain(errStr);
-//         })
-//
-//         test("DEL /products/:key", async ()=>{
-//             const response = await request(server.callback()).del('/api/products/1');
-//             expect(response.text).toContain(errStr)
-//         })
-//     })
 })
-
