@@ -1,34 +1,25 @@
 version: '3.9'
 services:
-  db:
-    image: postgres:14-alpine
+  mongo:
+    image: mongo:latest
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
-      POSTGRES_DB: my-sku-db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     restart: always
-    volumes:
-      - pg-data:/var/lib/postgres/data
-    networks:
-      - pg-net
 
-  pgAdmin:
-#    container_name: pgadmin
-    image: dpage/pgadmin4
+  mongo-express:
+    image: mongo-express
     restart: always
-    networks:
-      - pg-net
-    volumes:
-      - pg-data:/var/lib/postgres/data
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
     ports:
-      - "5050:80"
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo/
     depends_on:
-      - db
+      - mongo
 
 
   backend:
@@ -39,12 +30,9 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     environment:
-      CONN_STR: "postgresql://postgres:postgres@db:5432/my-sku-db"
-      KOA_PORT: 3001
-    networks:
-      - pg-net
-    volumes:
-      - .:/app/server
+      MONGO_URI: mongodb://myAppUser:myAppUserPwd@mongo:27017/my-app
+    depends_on:
+      - mongo
 
 #  frontend:
 #    image: bluebuug/my-sku-app:frontend
@@ -58,8 +46,8 @@ services:
 #      - "3000:3000"
 #    depends_on:
 #      - backend
-networks:
-  pg-net:
-volumes:
-  pg-data:
+#networks:
+#  mongo-net:
+#volumes:
+#  mongo-data:
 

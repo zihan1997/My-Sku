@@ -8,11 +8,12 @@ import {
 } from "../../../../reducers/api/apiSlice";
 import ProductsTable from "../ProductsTable";
 import {nanoid} from "@reduxjs/toolkit";
+import {useNavigate} from "react-router-dom";
 const { Option } = Select;
 
 export default function SearchProductForm(){
 
-    const {data: products} = useGetProductsQuery();
+    const {data: products, isError, error} = useGetProductsQuery();
     const [getCode] = useSearchProductsByCodeMutation();
     const [getName] = useSearchProductsByNameMutation();
 
@@ -25,9 +26,13 @@ export default function SearchProductForm(){
     // camera settings
     const [isCamera, setIsCamera] = useState(false);
 
-    // useEffect(()=> {
-    //     setSearchOutputTable(products)
-    // }, [products])
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(isError && error.status === 401){
+            message.info("Time out, please sign in again", 2);
+            navigate("../login")
+        }
+    }, [error])
 
     function onSelect(value) {
         // console.log(`selected ${value} ${searchedVal}`);
@@ -98,7 +103,6 @@ export default function SearchProductForm(){
                 <Divider/>
             </Space>
             <Space
-                // style={{marginLeft: 50}}
             >
                 <Select
                     // showSearch

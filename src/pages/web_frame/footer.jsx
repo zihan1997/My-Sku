@@ -11,7 +11,8 @@ export default class MyFooter extends React.Component{
                     textAlign: 'center',
                     fontSize: "small",
                     color: "rgb(255, 255, 255, 0.3)",
-                    // block
+                    position: "absolute",
+                    bottom: 0
                 }}
             >
                 My-Sku ©2022 Created by ZH
